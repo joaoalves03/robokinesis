@@ -2,6 +2,7 @@
     import {ref} from "vue"
     import {EventBus} from "../game/EventBus"
     import Card_select from "../components/card_select.vue"
+    import Inventory from "./player_inventory.vue"
 
     const enemiesLeft = ref(0)
     const cardSelect = ref(false)
@@ -28,4 +29,5 @@
     <div class="non-interactive absolute bottom-0 text-white p-8">
         <p class="text-3xl">Enemies left: {{enemiesLeft}}</p>
     </div>
+    <inventory />
 </template>
