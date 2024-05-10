@@ -15,7 +15,7 @@ export class EnemyManager {
             this.enemyCount--
             
             if(this.enemyCount == 0)
-                this.scene.events.emit("waveEnded")
+                EventBus.emit("waveEnded")
         })
     }
 
@@ -38,6 +38,8 @@ export class EnemyManager {
         }
 
         EventBus.emit("updateEnemyCount", this.enemyCount)
+        
+        
     }
 
     getEnemiesLeft(): number { return this.enemyCount }

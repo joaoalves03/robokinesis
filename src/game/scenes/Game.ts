@@ -3,6 +3,7 @@ import playerShip from '/assets/playerShip.png'
 import enemies from '/assets/enemies.png'
 import {Arena} from "../objects/Arena"
 import {EnemyManager} from "../entities/enemies/EnemyManager"
+import {EventBus} from "../../game/EventBus"
 
 export class GameScene extends Phaser.Scene {
     declare player: Player
@@ -16,31 +17,33 @@ export class GameScene extends Phaser.Scene {
 
     preload() {
         this.load.image("playerShip", playerShip)
-        this.load.spritesheet("enemies", enemies, {frameWidth: 32,frameHeight:32})
+        this.load.spritesheet("enemies", enemies, {frameWidth: 32, frameHeight: 32})
     }
 
     create() {
         this.input.setPollAlways()
 
-        this.arena = new Arena(this.matter.scene, 0,0)
-        this.player = new Player(this.matter.world, 50,50)
-
-        /*let a = this.matter.add.polygon(200, 150, 3, 40, {
-            scale: new Vector2(2,100)
-        })*/
+        this.arena = new Arena(this.matter.scene, 0, 0)
+        this.player = new Player(this.matter.world, 50, 50)
 
         this.enemyManager = new EnemyManager(this.matter.scene)
         this.enemyManager.newWave(this.arena.getTiles())
 
         this.cameras.main.startFollow(this.player.getPlayer())
 
-        this.events.on("waveEnded", () => {
-            //this.enemyManager.newWave(this.arena.getTiles())
-            //this.cameras.main.stopFollow()
-            //this.cameras.main.setOrigin(0,0)
-            this.cameras.main.setZoom(0.5,0.5)
+        EventBus.on("waveEnded", () => {
+            this.cameras.main.stopFollow()
+            this.cameras.main.setPosition(0, 0)
+            this.cameras.main.zoomTo(0.5, 500, 'Linear', true)
+            this.cameras.main.pan(600, 600, 500, 'Linear', true);
+        })
+
+        EventBus.on("selectCard", () => {
             this.enemyManager.newWave(this.arena.getTiles())
-            //this.cameras.main.setPosition(0,0)
+            this.cameras.main.zoomTo(1, 250, 'Linear', true)
+            const player = this.player.getPlayer()
+            this.cameras.main.pan(player.x, player.y, 500, 'Linear', true);
+            this.cameras.main.startFollow(player)
         })
     }
 
