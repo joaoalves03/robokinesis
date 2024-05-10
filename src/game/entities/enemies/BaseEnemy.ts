@@ -1,5 +1,6 @@
 import Phaser from "phaser"
-import type {Player} from "@/game/entities/Player"
+import type {Player} from "../../../game/entities/Player"
+import {EventBus} from "../../../game/EventBus"
 
 export abstract class BaseEnemy extends Phaser.Physics.Matter.Factory {
     private health: number
@@ -29,7 +30,7 @@ export abstract class BaseEnemy extends Phaser.Physics.Matter.Factory {
     die() {
         // TODO: Add death effects
         this.enemy.destroy()
-        this.scene.events.emit("enemyDeath")
+        EventBus.emit("enemyDeath")
     }
 
     isDead() {

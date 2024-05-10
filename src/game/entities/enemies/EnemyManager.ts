@@ -1,4 +1,5 @@
 import {Zombie} from "../../entities/enemies/Zombie"
+import {EventBus} from "../../../game/EventBus"
 
 export class EnemyManager {
     private difficulty: number = 1
@@ -8,7 +9,7 @@ export class EnemyManager {
     constructor(scene: Phaser.Scene) {
         this.scene = scene
 
-        scene.events.on("enemyDeath", () => {
+        EventBus.on("enemyDeath", () => {
             if(this.enemyCount <= 0) return
 
             this.enemyCount--
