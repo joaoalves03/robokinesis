@@ -39,6 +39,7 @@ export class GameScene extends Phaser.Scene {
             //this.cameras.main.stopFollow()
             //this.cameras.main.setOrigin(0,0)
             this.cameras.main.setZoom(0.5,0.5)
+            this.enemyManager.newWave(this.arena.getTiles())
             //this.cameras.main.setPosition(0,0)
         })
     }

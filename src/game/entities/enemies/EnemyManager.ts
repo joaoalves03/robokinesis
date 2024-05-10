@@ -2,7 +2,7 @@ import {Zombie} from "../../entities/enemies/Zombie"
 import {EventBus} from "../../../game/EventBus"
 
 export class EnemyManager {
-    private difficulty: number = 1
+    private difficulty: number = 0
     private scene: Phaser.Scene
     private enemyCount: number = 0
 
@@ -13,11 +13,15 @@ export class EnemyManager {
             if(this.enemyCount <= 0) return
 
             this.enemyCount--
-            this.scene.events.emit("waveEnded")
+            
+            if(this.enemyCount == 0)
+                this.scene.events.emit("waveEnded")
         })
     }
 
     newWave(tiles: Phaser.GameObjects.Rectangle[]) {
+        this.difficulty++
+        
         for(let i = 0; i<this.difficulty; i++) {
             let selectedTile: Phaser.GameObjects.Rectangle
             do {
@@ -32,6 +36,8 @@ export class EnemyManager {
 
             this.enemyCount++
         }
+
+        EventBus.emit("updateEnemyCount", this.enemyCount)
     }
 
     getEnemiesLeft(): number { return this.enemyCount }
