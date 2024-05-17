@@ -10,11 +10,18 @@
 </script>
 
 <template>
-    <div class="non-interactive absolute bottom-0 left-0 text-white p-8">
-        <p class="text-5xl">{{playerHealth}} HP</p>
+    <div class="non-interactive container">
+        <div :style="`width: ${playerHealth}%;`"></div>
+        <p class="relative text-2xl p-2">{{playerHealth}}</p>
     </div>
 </template>
 
 <style scoped lang="postcss">
-
+    .container {
+        @apply absolute bottom-0 left-0 text-white m-8 w-96 bg-black bg-opacity-50 rounded-xl overflow-hidden;
+        
+        div {
+            @apply bg-red-600 h-full absolute top-0 rounded-xl transition-all duration-150 ease-in-out;
+        }
+    }
 </style>
