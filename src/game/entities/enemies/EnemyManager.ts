@@ -37,9 +37,8 @@ export class EnemyManager {
             this.enemyCount++
         }
 
+        EventBus.emit("newWave")
         EventBus.emit("updateEnemyCount", this.enemyCount)
-        
-        
     }
 
     getEnemiesLeft(): number { return this.enemyCount }

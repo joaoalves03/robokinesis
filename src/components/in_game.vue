@@ -1,33 +1,13 @@
 <script setup lang="ts">
-    import {ref} from "vue"
-    import {EventBus} from "../game/EventBus"
     import Card_select from "../components/card_select.vue"
     import Inventory from "./player_inventory.vue"
-
-    const enemiesLeft = ref(0)
-    const cardSelect = ref(false)
-    
-    EventBus.on("updateEnemyCount", (enemies: number) => {
-        enemiesLeft.value = enemies
-    })
-
-    EventBus.on("enemyDeath", () => {
-        enemiesLeft.value = Math.max(0, enemiesLeft.value - 1)
-    })
-    
-    EventBus.on("waveEnded", () => {
-        cardSelect.value = true
-    })
-    
-    EventBus.on("selectCard", () => {
-        cardSelect.value = false
-    })
+    import Player_health from "./player_health.vue"
+    import Round_info from "./round_info.vue"
 </script>
 
 <template>
-    <card_select v-if="cardSelect" />
-    <div class="non-interactive absolute bottom-0 text-white p-8">
-        <p class="text-3xl">Enemies left: {{enemiesLeft}}</p>
-    </div>
+    <card_select />
+    <round_info />
+    <player_health />
     <inventory />
 </template>

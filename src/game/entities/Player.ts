@@ -4,8 +4,9 @@ import type {BaseWeapon} from "../entities/weapons/BaseWeapon";
 export class Player extends Phaser.Physics.Matter.Factory {
     declare cursors: Phaser.Types.Input.Keyboard.CursorKeys
     private readonly player: Phaser.Physics.Matter.Image
-    private keyboard: Phaser.Input.Keyboard.KeyboardPlugin | null;
-    private weapon: BaseWeapon;
+    private keyboard: Phaser.Input.Keyboard.KeyboardPlugin | null
+    private weapon: BaseWeapon
+    private health: number = 100
 
     constructor(world: Phaser.Physics.Matter.World, x: number, y: number) {
         super(world)

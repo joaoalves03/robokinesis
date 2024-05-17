@@ -1,6 +1,17 @@
 <script setup lang="ts">
     import {EventBus} from "../game/EventBus"
+    import {ref} from "vue"
 
+    const cardSelect = ref(false)
+
+    EventBus.on("waveEnded", () => {
+        cardSelect.value = true
+    })
+
+    EventBus.on("selectCard", () => {
+        cardSelect.value = false
+    })
+    
     function selectCard() {
         // TODO: Add to inventory
         EventBus.emit("selectCard")
@@ -8,7 +19,7 @@
 </script>
 
 <template>
-    <div class="absolute top-0 bottom-0 w-full h-full flex flex-row justify-center items-center gap-8">
+    <div v-if="cardSelect" class="absolute top-0 bottom-0 w-full h-full flex flex-row justify-center items-center gap-8">
         <div 
             v-for="i in Array(3).keys()" 
             @click="selectCard"
