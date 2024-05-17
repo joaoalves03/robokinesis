@@ -19,6 +19,29 @@ export abstract class BaseEnemy extends Phaser.Physics.Matter.Factory {
                 this.takeDamage(20)
             }
         })
+        
+        const onCollideWithPlayer = this.scene.time.addEvent({
+            callback: () => {EventBus.emit("damagePlayer", 10)},
+            delay: 1000,
+            startAt: 1000,
+            loop: true,
+            paused: true
+        })
+        
+        this.enemy.setOnCollide((pair: any) => {
+            if(pair.bodyA.label == "player" || pair.bodyB.label == "player") {
+                onCollideWithPlayer.startAt = 2000
+                onCollideWithPlayer.paused = false
+            }
+        })
+
+        this.enemy.setOnCollideEnd((pair: any) => {
+            if(pair.bodyA.label == "player" || pair.bodyB.label == "player") {
+                onCollideWithPlayer.paused = true
+            }
+        })
+        
+        //this.enemy.setcol
     }
 
     takeDamage(damage: number) {

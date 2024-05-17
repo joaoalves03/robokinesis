@@ -1,5 +1,6 @@
 import {Pistol} from "../entities/weapons/Pistol";
 import type {BaseWeapon} from "../entities/weapons/BaseWeapon";
+import {EventBus} from "../EventBus"
 
 export class Player extends Phaser.Physics.Matter.Factory {
     declare cursors: Phaser.Types.Input.Keyboard.CursorKeys
@@ -17,6 +18,10 @@ export class Player extends Phaser.Physics.Matter.Factory {
         this.weapon = new Pistol(this.scene, this.player)
 
         this.keyboard = this.scene.input.keyboard;
+        
+        EventBus.on("damagePlayer", (damage: number) => {
+            this.health = Math.max(0, this.health - damage)
+        })
     }
 
     update() {

@@ -4,7 +4,7 @@
 
     const playerHealth = ref(100)
     
-    EventBus.on("damageTaken", (damage: number) => {
+    EventBus.on("damagePlayer", (damage: number) => {
         playerHealth.value = Math.max(0, playerHealth.value - damage)
     })
 </script>
