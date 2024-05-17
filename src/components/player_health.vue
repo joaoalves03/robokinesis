@@ -12,7 +12,7 @@
 <template>
     <div class="non-interactive container">
         <div :style="`width: ${playerHealth}%;`"></div>
-        <p class="relative text-2xl p-2">{{playerHealth}}</p>
+        <p class="">{{playerHealth}}</p>
     </div>
 </template>
 
@@ -22,6 +22,10 @@
         
         div {
             @apply bg-red-600 h-full absolute top-0 rounded-xl transition-all duration-150 ease-in-out;
+        }
+        
+        p {
+            @apply relative text-2xl pl-4
         }
     }
 </style>
