@@ -42,7 +42,7 @@ export class GameScene extends Phaser.Scene {
             this.enemyManager.newWave(this.arena.getTiles())
             this.cameras.main.zoomTo(1, 250, 'Linear', true)
             const player = this.player.getPlayer()
-            this.cameras.main.pan(player.x, player.y, 500, 'Linear', true);
+            this.cameras.main.pan(player.x, player.y, 250, 'Linear', true);
             this.cameras.main.startFollow(player)
         })
     }
