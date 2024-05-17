@@ -11,14 +11,6 @@ export abstract class BaseEnemy extends Phaser.Physics.Matter.Factory {
 
         this.enemy = this.scene.matter.add.sprite(x, y, texture, 0)
         this.health = health
-
-        // TODO: Figure out what the type here is
-        this.enemy.setOnCollide((pair: any) => {
-            if(pair.bodyA.label == "bullet" || pair.bodyB.label == "bullet") {
-                // TODO: Replace with bullet damage somehow?
-                this.takeDamage(20)
-            }
-        })
         
         const onCollideWithPlayer = this.scene.time.addEvent({
             callback: () => {EventBus.emit("damagePlayer", 10)},
@@ -27,9 +19,13 @@ export abstract class BaseEnemy extends Phaser.Physics.Matter.Factory {
             loop: true,
             paused: true
         })
-        
+
+        // TODO: Figure out what the type here is
         this.enemy.setOnCollide((pair: any) => {
-            if(pair.bodyA.label == "player" || pair.bodyB.label == "player") {
+            if(pair.bodyA.label == "bullet" || pair.bodyB.label == "bullet") {
+                // TODO: Replace with bullet damage somehow?
+                this.takeDamage(20)
+            }else if(pair.bodyA.label == "player" || pair.bodyB.label == "player") {
                 onCollideWithPlayer.startAt = 2000
                 onCollideWithPlayer.paused = false
             }
