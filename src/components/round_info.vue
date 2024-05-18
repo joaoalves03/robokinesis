@@ -19,12 +19,27 @@
 </script>
 
 <template>
-    <div class="non-interactive absolute top-0 text-white w-full flex flex-col items-center">
-        <p class="text-3xl">Round {{wave}}</p>
-        <p class="text-xl">Enemies left: {{enemiesLeft}}</p>
+    <div class="container non-interactive">
+        <div>
+            <p class="text-2xl font-bold">Round {{wave}}</p>
+            <div>
+                <p class="text-lg">Enemies left</p>
+                <p class="text-4xl font-bold">{{enemiesLeft}}</p>
+            </div>
+        </div>
     </div>
 </template>
 
 <style scoped lang="postcss">
-
+    .container {
+        @apply absolute top-8 w-full flex flex-col items-center;
+        
+        > div {
+            @apply text-white inline-flex flex-col items-center bg-black bg-opacity-50 p-4 rounded-xl;
+            
+            > div {
+                @apply flex flex-col items-center
+            }
+        }
+    }
 </style>
