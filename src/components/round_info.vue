@@ -19,7 +19,7 @@
 </script>
 
 <template>
-    <div class="container non-interactive">
+    <div class="content non-interactive">
         <div>
             <p class="text-2xl font-bold">Round {{wave}}</p>
             <div>
@@ -31,7 +31,7 @@
 </template>
 
 <style scoped lang="postcss">
-    .container {
+    .content {
         @apply absolute top-8 w-full flex flex-col items-center;
         
         > div {

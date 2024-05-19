@@ -10,7 +10,7 @@ EventBus.on("damagePlayer", (damage: number) => {
 </script>
 
 <template>
-    <div class="non-interactive container">
+    <div class="non-interactive content">
         <div :style="`width: ${playerHealth}%;`"></div>
         <img src="/assets/heart.svg" alt="">
         <p>{{ playerHealth }}</p>
@@ -18,7 +18,7 @@ EventBus.on("damagePlayer", (damage: number) => {
 </template>
 
 <style scoped lang="postcss">
-.container {
+.content {
     @apply absolute bottom-0 left-0 text-white m-8 w-96 bg-black bg-opacity-50 rounded-xl overflow-hidden flex items-center gap-2;
 
     div {
