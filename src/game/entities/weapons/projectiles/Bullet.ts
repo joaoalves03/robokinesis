@@ -15,7 +15,7 @@ export class Bullet extends Phaser.GameObjects.GameObjectFactory {
         ) as Phaser.Physics.Matter.Image
         this.bullet.setFrictionAir(0)
 
-        let angle = Math.atan2(targetY - startY,targetX - startX)
+        const angle = Math.atan2(targetY - startY,targetX - startX)
 
         this.bullet.setVelocity(
             this.speed * Math.cos(angle),

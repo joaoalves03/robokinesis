@@ -1,6 +1,7 @@
 import {Pistol} from "../entities/weapons/Pistol";
 import type {BaseWeapon} from "../entities/weapons/BaseWeapon";
 import {EventBus} from "../EventBus"
+import {RocketLauncher} from "../entities/weapons/RocketLauncher"
 
 export class Player extends Phaser.Physics.Matter.Factory {
     declare cursors: Phaser.Types.Input.Keyboard.CursorKeys
@@ -15,7 +16,7 @@ export class Player extends Phaser.Physics.Matter.Factory {
         this.player = this.scene.matter.add.image(x, y, 'playerShip', 0, {
             label: "player"
         })
-        this.weapon = new Pistol(this.scene, this.player)
+        this.weapon = new RocketLauncher(this.scene, this.player)
 
         this.keyboard = this.scene.input.keyboard;
         

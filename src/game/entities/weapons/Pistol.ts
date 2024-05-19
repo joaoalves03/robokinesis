@@ -1,6 +1,6 @@
 import {BaseWeapon} from "../../entities/weapons/BaseWeapon";
 import Phaser from "phaser";
-import {Bullet} from "../../entities/weapons/Bullet";
+import {Bullet} from "./projectiles/Bullet";
 
 export class Pistol extends BaseWeapon {
     constructor(scene: Phaser.Scene, _parent: Phaser.Physics.Matter.Image) {

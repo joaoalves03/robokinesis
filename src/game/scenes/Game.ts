@@ -1,6 +1,7 @@
 import {Player} from "../entities/Player";
 import playerShip from '/assets/playerShip.png'
 import enemies from '/assets/enemies.png'
+import rocketLauncher from '/assets/weapons/rocketlauncher.png'
 import {Arena} from "../objects/Arena"
 import {EnemyManager} from "../entities/enemies/EnemyManager"
 import {EventBus} from "../../game/EventBus"
@@ -17,6 +18,7 @@ export class GameScene extends Phaser.Scene {
 
     preload() {
         this.load.image("playerShip", playerShip)
+        this.load.image("rocketLauncher", rocketLauncher)
         this.load.spritesheet("enemies", enemies, {frameWidth: 32, frameHeight: 32})
     }
 

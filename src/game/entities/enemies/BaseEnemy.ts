@@ -25,7 +25,9 @@ export abstract class BaseEnemy extends Phaser.Physics.Matter.Factory {
             if(pair.bodyA.label == "bullet" || pair.bodyB.label == "bullet") {
                 // TODO: Replace with bullet damage somehow?
                 this.takeDamage(20)
-            }else if(pair.bodyA.label == "player" || pair.bodyB.label == "player") {
+            }else if (pair.bodyA.label == "explosion" || pair.bodyB.label == "explosion") {
+                this.takeDamage(40)
+            } else if(pair.bodyA.label == "player" || pair.bodyB.label == "player") {
                 onCollideWithPlayer.startAt = 2000
                 onCollideWithPlayer.paused = false
             }
