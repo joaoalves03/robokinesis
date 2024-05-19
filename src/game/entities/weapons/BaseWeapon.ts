@@ -43,4 +43,15 @@ export abstract class BaseWeapon extends Phaser.GameObjects.GameObjectFactory {
     calculateOffset(){
         return (this.weapon.displayWidth/2) + this.weapon.displayWidth;
     }
+    
+    reload() {
+        if(this.recharging) return
+
+        this.recharging = true
+
+        this.scene.time.addEvent({
+            callback: () => {this.recharging = false},
+            delay: this.fireRate
+        })
+    }
 }

@@ -14,18 +14,12 @@ export class Pistol extends BaseWeapon {
     fire(): void {
         if(this.recharging) return
 
-        this.recharging = true
-
-        this.scene.time.addEvent({
-            callback: () => {this.recharging = false},
-            delay: this.fireRate
-        })
-
         const target = {
             x: this.scene.input.activePointer.x + this.scene.cameras.main.scrollX,
             y: this.scene.input.activePointer.y + this.scene.cameras.main.scrollY
         }
         new Bullet(this.scene, this.weapon.x,this.weapon.y,target.x,target.y)
+        this.reload()
     }
 
     altFire(): void {
