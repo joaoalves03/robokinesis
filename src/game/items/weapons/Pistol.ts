@@ -1,4 +1,4 @@
-import {BaseWeapon} from "../../entities/weapons/BaseWeapon";
+import {BaseWeapon} from "./BaseWeapon";
 import Phaser from "phaser";
 import {Bullet} from "./projectiles/Bullet";
 

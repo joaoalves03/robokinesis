@@ -1,7 +1,7 @@
-import {Pistol} from "../entities/weapons/Pistol";
-import type {BaseWeapon} from "../entities/weapons/BaseWeapon";
+import {Pistol} from "@/game/items/weapons/Pistol";
+import type {BaseWeapon} from "@/game/items/weapons/BaseWeapon";
 import {EventBus} from "../EventBus"
-import {RocketLauncher} from "../entities/weapons/RocketLauncher"
+import {RocketLauncher} from "@/game/items/weapons/RocketLauncher"
 
 export class Player extends Phaser.Physics.Matter.Factory {
     declare cursors: Phaser.Types.Input.Keyboard.CursorKeys
