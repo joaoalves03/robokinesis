@@ -1,6 +1,6 @@
 import Phaser from "phaser"
-import type {Player} from "../../../game/entities/Player"
-import {EventBus} from "../../../game/EventBus"
+import type {Player} from "@/game/entities/Player"
+import {EventBus} from "@/game/EventBus"
 
 export abstract class BaseEnemy extends Phaser.Physics.Matter.Factory {
     private health: number

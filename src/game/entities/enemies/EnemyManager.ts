@@ -1,5 +1,5 @@
 import {Zombie} from "../../entities/enemies/Zombie"
-import {EventBus} from "../../../game/EventBus"
+import {EventBus} from "@/game/EventBus"
 
 export class EnemyManager {
     private difficulty: number = 0

@@ -1,4 +1,4 @@
-import {EventBus} from "../../../EventBus"
+import {EventBus} from "@/game/EventBus"
 
 export class Explosion extends Phaser.GameObjects.GameObjectFactory {
     private trigger

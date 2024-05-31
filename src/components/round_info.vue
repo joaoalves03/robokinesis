@@ -1,6 +1,6 @@
 <script setup lang="ts">
     import {ref} from "vue"
-    import {EventBus} from "../game/EventBus"
+    import {EventBus} from "@/game/EventBus"
     
     const enemiesLeft = ref(0)
     const wave = ref(0)

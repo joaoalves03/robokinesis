@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import {EventBus} from "../game/EventBus"
+    import {EventBus} from "@/game/EventBus"
     import {ref} from "vue"
 
     const cardSelect = ref(false)
@@ -24,7 +24,7 @@
             v-for="i in Array(3).keys()" 
             @click="selectCard"
             class="bg-white hover:bg-gray-400 p-8">
-            card {{ i + 1 }}
+            chip {{ i + 1 }}
         </div>
     </div>
 </template>

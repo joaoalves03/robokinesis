@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {EventBus} from "../game/EventBus"
+import {EventBus} from "@/game/EventBus"
 import {ref} from "vue"
 
 const playerHealth = ref(100)

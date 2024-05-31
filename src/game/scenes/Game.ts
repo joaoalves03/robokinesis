@@ -4,7 +4,7 @@ import enemies from '/assets/enemies.png'
 import rocketLauncher from '/assets/weapons/rocketlauncher.png'
 import {Arena} from "../objects/Arena"
 import {EnemyManager} from "../entities/enemies/EnemyManager"
-import {EventBus} from "../../game/EventBus"
+import {EventBus} from "@/game/EventBus"
 
 export class GameScene extends Phaser.Scene {
     declare player: Player
