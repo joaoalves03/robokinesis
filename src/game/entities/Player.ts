@@ -13,11 +13,11 @@ export class Player extends Phaser.Physics.Matter.Factory {
     constructor(world: Phaser.Physics.Matter.World, x: number, y: number) {
         super(world)
 
-        this.player = this.scene.matter.add.image(x, y, 'playerShip', 0, {
+        this.player = this.scene.matter.add.image(x, y, 'player', 0, {
             label: "player"
         })
         this.weapon = new RocketLauncher(this.scene, this.player)
-
+        this.player.setFixedRotation()
         this.keyboard = this.scene.input.keyboard;
         
         EventBus.on("damagePlayer", (damage: number) => {

@@ -1,5 +1,5 @@
 import {Player} from "../entities/Player";
-import playerShip from '/assets/playerShip.png'
+import eugene from '/assets/eugene.png'
 import enemies from '/assets/enemies.png'
 import rocketLauncher from '/assets/weapons/rocketlauncher.png'
 import {Arena} from "../objects/Arena"
@@ -17,7 +17,7 @@ export class GameScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image("playerShip", playerShip)
+        this.load.image("player", eugene)
         this.load.image("rocketLauncher", rocketLauncher)
         this.load.spritesheet("enemies", enemies, {frameWidth: 32, frameHeight: 32})
     }
@@ -32,6 +32,7 @@ export class GameScene extends Phaser.Scene {
         this.enemyManager.newWave(this.arena.getTiles())
 
         this.cameras.main.startFollow(this.player.getPlayer())
+        this.cameras.main.setZoom(1.5,1.5)
 
         EventBus.on("waveEnded", () => {
             this.cameras.main.stopFollow()
@@ -42,7 +43,7 @@ export class GameScene extends Phaser.Scene {
 
         EventBus.on("selectCard", () => {
             this.enemyManager.newWave(this.arena.getTiles())
-            this.cameras.main.zoomTo(1, 250, 'Linear', true)
+            this.cameras.main.zoomTo(1.5, 250, 'Linear', true)
             const player = this.player.getPlayer()
             this.cameras.main.pan(player.x, player.y, 250, 'Linear', true);
             this.cameras.main.startFollow(player)
