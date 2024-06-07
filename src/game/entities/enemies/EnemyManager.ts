@@ -1,17 +1,20 @@
 import {Zombie} from "../../entities/enemies/Zombie"
 import {EventBus} from "@/game/EventBus"
+import type {Player} from "@/game/entities/Player"
+import type {BaseEnemy} from "@/game/entities/enemies/BaseEnemy"
 
 export class EnemyManager {
-    private difficulty: number = 0
+    private difficulty: number = 20
     private scene: Phaser.Scene
     private enemyCount: number = 0
-
+    private enemies: BaseEnemy[] = []
+    
     constructor(scene: Phaser.Scene) {
         this.scene = scene
 
         EventBus.on("enemyDeath", () => {
             if(this.enemyCount <= 0) return
-
+            
             this.enemyCount--
             
             if(this.enemyCount == 0)
@@ -19,20 +22,21 @@ export class EnemyManager {
         })
     }
 
-    newWave(tiles: Phaser.GameObjects.Rectangle[]) {
+    newWave(tiles: Phaser.GameObjects.Rectangle[][], player: Player) {
         this.difficulty++
         
         for(let i = 0; i<this.difficulty; i++) {
             let selectedTile: Phaser.GameObjects.Rectangle
             do {
-                selectedTile = tiles[Math.floor(Math.random() * tiles.length)]
+                selectedTile = tiles[Math.floor(Math.random() * tiles.length)][Math.floor(Math.random() * tiles.length)]
             } while(selectedTile.fillColor != 0xeeeeee)
 
-            new Zombie(
+            this.enemies.push(new Zombie(
                 this.scene.matter.world,
                 selectedTile.x,
-                selectedTile.y
-            )
+                selectedTile.y,
+                player
+            ))
 
             this.enemyCount++
         }
@@ -42,4 +46,10 @@ export class EnemyManager {
     }
 
     getEnemiesLeft(): number { return this.enemyCount }
+    
+    getEnemies() { return this.enemies }
+    
+    removeEnemy(x: number) {
+        this.enemies.slice(x, 1)
+    }
 }

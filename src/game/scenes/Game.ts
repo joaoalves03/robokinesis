@@ -29,11 +29,12 @@ export class GameScene extends Phaser.Scene {
         this.player = new Player(this.matter.world, 50, 50)
 
         this.enemyManager = new EnemyManager(this.matter.scene)
-        this.enemyManager.newWave(this.arena.getTiles())
+        this.enemyManager.newWave(this.arena.getTiles(), this.player)
 
         this.cameras.main.startFollow(this.player.getPlayer())
-        this.cameras.main.setZoom(1.5,1.5)
 
+        this.arena.findPath()
+        
         EventBus.on("waveEnded", () => {
             this.cameras.main.stopFollow()
             this.cameras.main.setPosition(0, 0)
@@ -42,8 +43,8 @@ export class GameScene extends Phaser.Scene {
         })
 
         EventBus.on("selectCard", () => {
-            this.enemyManager.newWave(this.arena.getTiles())
-            this.cameras.main.zoomTo(1.5, 250, 'Linear', true)
+            this.enemyManager.newWave(this.arena.getTiles(), this.player)
+            this.cameras.main.zoomTo(1.0, 250, 'Linear', true)
             const player = this.player.getPlayer()
             this.cameras.main.pan(player.x, player.y, 250, 'Linear', true);
             this.cameras.main.startFollow(player)
@@ -52,6 +53,13 @@ export class GameScene extends Phaser.Scene {
 
     update() {
         this.player.update()
+        
+        for(const [i, enemy] of this.enemyManager.getEnemies().entries()) {
+            if(enemy.isDead())
+                this.enemyManager.removeEnemy(i)
+            else
+                enemy.update()
+        }
         //console.log(EnemyManager.getInstance().getEnemiesLeft())
     }
 }
