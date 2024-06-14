@@ -14,10 +14,28 @@ export abstract class BaseEnemy extends Phaser.Physics.Matter.Factory {
 
         this.enemy = this.scene.matter.add.sprite(x, y, texture, 0)
         this.health = this.maxHealth = health
+        this.enemy.setAlpha(0)
         
-        
+        // Spawning Effect (white circle)
+        const spawnEffect = this.scene.add.circle(this.enemy.x, this.enemy.y, 0, 0xffe600)
+        this.scene.add.tween({
+            targets: spawnEffect,
+            radius: 30,
+            duration: 250,
+            onComplete: () => {this.enemy.setAlpha(1)}
+        })
+        this.scene.add.tween({
+            targets: spawnEffect,
+            fillAlpha: 0,
+            duration: 250,
+            delay: 250,
+            onComplete: () => {spawnEffect.destroy()}
+        })
+
         const onCollideWithPlayer = this.scene.time.addEvent({
-            callback: () => {EventBus.emit("damagePlayer", 10)},
+            callback: () => {
+                EventBus.emit("damagePlayer", 10)
+            },
             delay: 1000,
             startAt: 1000,
             loop: true,
@@ -26,28 +44,28 @@ export abstract class BaseEnemy extends Phaser.Physics.Matter.Factory {
 
         // TODO: Figure out what the type here is
         this.enemy.setOnCollide((pair: any) => {
-            if(pair.bodyA.label == "bullet" || pair.bodyB.label == "bullet") {
+            if (pair.bodyA.label == "bullet" || pair.bodyB.label == "bullet") {
                 // TODO: Replace with bullet damage somehow?
                 this.takeDamage(20)
-            }else if (pair.bodyA.label == "explosion" || pair.bodyB.label == "explosion") {
+            } else if (pair.bodyA.label == "explosion" || pair.bodyB.label == "explosion") {
                 this.takeDamage(40)
-            } else if(pair.bodyA.label == "player" || pair.bodyB.label == "player") {
+            } else if (pair.bodyA.label == "player" || pair.bodyB.label == "player") {
                 onCollideWithPlayer.startAt = 2000
                 onCollideWithPlayer.paused = false
             }
         })
 
         this.enemy.setOnCollideEnd((pair: any) => {
-            if(pair.bodyA.label == "player" || pair.bodyB.label == "player") {
+            if (pair.bodyA.label == "player" || pair.bodyB.label == "player") {
                 onCollideWithPlayer.paused = true
             }
         })
-        
+
         this.healthBar = this.scene.add.graphics()
-        
+
         this.player = player
     }
-    
+
     drawHealthBar() {
         this.healthBar.clear()
         this.healthBar.fillStyle(0x000000, 1)
@@ -59,10 +77,10 @@ export abstract class BaseEnemy extends Phaser.Physics.Matter.Factory {
 
     takeDamage(damage: number) {
         this.health -= damage
-        
+
         this.drawHealthBar()
-        
-        if(this.health <= 0) {
+
+        if (this.health <= 0) {
             this.healthBar.destroy()
             this.die()
         }
@@ -86,15 +104,15 @@ export abstract class BaseEnemy extends Phaser.Physics.Matter.Factory {
         const direction = Math.atan((to.x - from.x) / (to.y - from.y));
         const speed2 = to.y >= from.y ? speed : -speed;
 
-        return { x: speed2 * Math.sin(direction), y: speed2 * Math.cos(direction) };
+        return {x: speed2 * Math.sin(direction), y: speed2 * Math.cos(direction)};
     }
 
     getGameObject() {
         return this.enemy
     }
-    
+
     update() {
-        if(this.healthBar.alpha != 0) {
+        if (this.healthBar.alpha != 0) {
             this.healthBar.x = this.enemy.x
             this.healthBar.y = this.enemy.y - 32
         }
