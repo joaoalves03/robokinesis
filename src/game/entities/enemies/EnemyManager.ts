@@ -2,9 +2,10 @@ import {Zombie} from "../../entities/enemies/Zombie"
 import {EventBus} from "@/game/EventBus"
 import type {Player} from "@/game/entities/Player"
 import type {BaseEnemy} from "@/game/entities/enemies/BaseEnemy"
+import {PaulEnemy} from "@/game/entities/enemies/Paul"
 
 export class EnemyManager {
-    private difficulty: number = 20
+    private difficulty: number = 0
     private scene: Phaser.Scene
     private enemyCount: number = 0
     private enemies: BaseEnemy[] = []
@@ -31,7 +32,7 @@ export class EnemyManager {
                 selectedTile = tiles[Math.floor(Math.random() * tiles.length)][Math.floor(Math.random() * tiles.length)]
             } while(selectedTile.fillColor != 0xeeeeee)
 
-            this.enemies.push(new Zombie(
+            this.enemies.push(new PaulEnemy(
                 this.scene.matter.world,
                 selectedTile.x,
                 selectedTile.y,

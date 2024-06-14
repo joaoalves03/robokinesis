@@ -8,6 +8,8 @@ export class Zombie extends BaseEnemy {
     }
 
     update() {
+        super.update()
+        
         const {x, y} = this.velocityToPlayer(1)
 
         this.enemy.setVelocity(x,y)

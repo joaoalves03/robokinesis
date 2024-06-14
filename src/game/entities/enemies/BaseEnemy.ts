@@ -4,14 +4,17 @@ import {EventBus} from "@/game/EventBus"
 
 export abstract class BaseEnemy extends Phaser.Physics.Matter.Factory {
     private health: number
+    private maxHealth: number
+    private healthBar: Phaser.GameObjects.Graphics
     protected enemy: Phaser.Physics.Matter.Sprite
-    private player: Player
+    protected player: Player
 
     protected constructor(world: Phaser.Physics.Matter.World, x: number, y: number, texture: string, health: number, player: Player) {
         super(world)
 
         this.enemy = this.scene.matter.add.sprite(x, y, texture, 0)
-        this.health = health
+        this.health = this.maxHealth = health
+        
         
         const onCollideWithPlayer = this.scene.time.addEvent({
             callback: () => {EventBus.emit("damagePlayer", 10)},
@@ -40,15 +43,29 @@ export abstract class BaseEnemy extends Phaser.Physics.Matter.Factory {
             }
         })
         
+        this.healthBar = this.scene.add.graphics()
+        
         this.player = player
-        //world.scene.physics.moveToObject(this.enemy, this.player)
-        //this.enemy.setcol
+    }
+    
+    drawHealthBar() {
+        this.healthBar.clear()
+        this.healthBar.fillStyle(0x000000, 1)
+        this.healthBar.fillRect(-25, 0, 50, 8)
+
+        this.healthBar.fillStyle(0x00ff00, 1)
+        this.healthBar.fillRect(-25, 0, (this.health / this.maxHealth) * 50, 8)
     }
 
     takeDamage(damage: number) {
         this.health -= damage
-
-        if(this.health <= 0) this.die()
+        
+        this.drawHealthBar()
+        
+        if(this.health <= 0) {
+            this.healthBar.destroy()
+            this.die()
+        }
     }
 
     die() {
@@ -76,5 +93,10 @@ export abstract class BaseEnemy extends Phaser.Physics.Matter.Factory {
         return this.enemy
     }
     
-    abstract update(): void
+    update() {
+        if(this.healthBar.alpha != 0) {
+            this.healthBar.x = this.enemy.x
+            this.healthBar.y = this.enemy.y - 32
+        }
+    }
 }
