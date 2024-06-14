@@ -25,10 +25,6 @@ export class GameScene extends Phaser.Scene {
         this.cameras.main.startFollow(this.player.getPlayer())
 
         this.arena.findPath()
-
-        this.cameras.main.stopFollow()
-        this.cameras.main.setZoom(0.5,0.5)
-        this.cameras.main.pan(600, 600, 1, 'Linear', true)
         
         EventBus.on("waveEnded", () => {
             this.cameras.main.stopFollow()
