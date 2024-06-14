@@ -1,7 +1,6 @@
 import {BaseEnemy} from "@/game/entities/enemies/BaseEnemy"
 import Phaser from "phaser"
 import type {Player} from "@/game/entities/Player"
-import {Bullet} from "@/game/items/weapons/projectiles/Bullet"
 import {EnemyLaser} from "@/game/entities/enemies/projectiles/Laser"
 import {EventBus} from "@/game/EventBus"
 
@@ -10,7 +9,8 @@ export class PaulEnemy extends BaseEnemy {
     raging = false
     ragingController: Phaser.Time.TimerEvent
     ragingEffect: Phaser.GameObjects.Arc
-    ragingEffectController: Phaser.Time.Timeline
+    ragingEffectTween1: Phaser.Tweens.Tween
+    ragingEffectTween2: Phaser.Tweens.Tween
 
     constructor(world: Phaser.Physics.Matter.World, x: number, y: number, player: Player) {
         super(world, x, y, "enemies", 200, player)
@@ -31,15 +31,14 @@ export class PaulEnemy extends BaseEnemy {
                     this.scene.time.delayedCall(
                         i * 100,
                         () => {
-                            if(this.enemy == null) return
-                            
-                            new EnemyLaser(
-                                this.scene,
-                                this.enemy.x + 20 * Math.cos(this.enemy.rotation),
-                                this.enemy.y + 20 * Math.sin(this.enemy.rotation),
-                                player.x,
-                                player.y
-                            )
+                            if(this.enemy)
+                                new EnemyLaser(
+                                    this.scene,
+                                    this.enemy.x + 20 * Math.cos(this.enemy.rotation),
+                                    this.enemy.y + 20 * Math.sin(this.enemy.rotation),
+                                    player.x,
+                                    player.y
+                                )
                         }
                     )
                 }
@@ -52,48 +51,44 @@ export class PaulEnemy extends BaseEnemy {
                 this.raging = true
                 this.firingController.destroy()
 
-                this.ragingEffectController = this.scene.add.timeline([
-                    {
-                        at: 250,
-                        tween: {
-                            targets: this.ragingEffect,
-                            radius: 30,
-                            ease: 'Power1',
-                            duration: 250,
-                        }
+                this.ragingEffectTween1 = this.scene.add.tween({
+                    targets: this.ragingEffect,
+                    radius: 30,
+                    ease: 'Power1',
+                    duration: 250,
+                    repeat: -1,
+                    repeatDelay: 250
+                })
+
+                this.ragingEffectTween2 = this.scene.add.tween({
+                    targets: this.ragingEffect,
+                    fillAlpha: 0,
+                    ease: 'Power1',
+                    duration: 250,
+                    onComplete: () => {
+                        /*if(this.ragingEffect) {
+                            this.ragingEffect.setRadius(0)
+                            this.ragingEffect.fillAlpha = 0.5
+                        }*/
                     },
-                    {
-                        at: 500,
-                        tween: {
-                            targets: this.ragingEffect,
-                            fillAlpha: 0,
-                            ease: 'Power1',
-                            duration: 250,
-                            onComplete: () => {
-                                if(this.ragingEffect == null) return
-                                
-                                this.ragingEffect.setRadius(0)
-                                this.ragingEffect.fillAlpha = 0.5
-                            }
-                        }
-                    }
-                ])
-
-                this.ragingEffectController.repeat(-1)
-                this.ragingEffectController.play()
-
+                    delay: 250,
+                    repeatDelay: 250,
+                    repeat: -1
+                })
+                
                 this.firingController = this.scene.time.addEvent({
                     delay: 100,
                     startAt: 100,
                     loop: true,
                     callback: () => {
-                        new EnemyLaser(
-                            this.scene,
-                            this.enemy.x + 20 * Math.cos(this.enemy.rotation),
-                            this.enemy.y + 20 * Math.sin(this.enemy.rotation),
-                            this.enemy.x + 40 * Math.cos(this.enemy.rotation),
-                            this.enemy.y + 40 * Math.sin(this.enemy.rotation)
-                        )
+                        if(this.enemy)
+                            new EnemyLaser(
+                                this.scene,
+                                this.enemy.x + 20 * Math.cos(this.enemy.rotation),
+                                this.enemy.y + 20 * Math.sin(this.enemy.rotation),
+                                this.enemy.x + 40 * Math.cos(this.enemy.rotation),
+                                this.enemy.y + 40 * Math.sin(this.enemy.rotation)
+                            )
                     }
                 })
             }
@@ -120,10 +115,8 @@ export class PaulEnemy extends BaseEnemy {
         this.firingController.destroy()
         this.ragingController.destroy()
         if (this.raging) {
-            this.ragingEffectController.destroy()
-            this.ragingEffectController.events.forEach(x => {
-                this.scene.tweens.remove(x.tween as Phaser.Tweens.Tween)
-            })
+            this.ragingEffectTween1.destroy()
+            this.ragingEffectTween2.destroy()
         }
         if(this.ragingEffect) this.ragingEffect.destroy()
         this.enemy.destroy()
