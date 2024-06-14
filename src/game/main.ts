@@ -2,6 +2,7 @@ import {GameScene} from './scenes/Game';
 import {AUTO, Game} from 'phaser';
 import {MapEditorScene} from "./scenes/MapEditor"
 import Center = Phaser.Scale.Center
+import {LoadScene} from "@/game/scenes/Load"
 
 const config: Phaser.Types.Core.GameConfig = {
     type: AUTO,
@@ -25,6 +26,7 @@ const config: Phaser.Types.Core.GameConfig = {
         }
     },
     scene: [
+        LoadScene,
         GameScene,
         MapEditorScene
     ]
