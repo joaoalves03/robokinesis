@@ -2,6 +2,7 @@ import {Pistol} from "@/game/items/weapons/Pistol";
 import type {BaseWeapon} from "@/game/items/weapons/BaseWeapon";
 import {EventBus} from "../EventBus"
 import {RocketLauncher} from "@/game/items/weapons/RocketLauncher"
+import {PlasmaGun} from "@/game/items/weapons/PlasmaGun"
 
 export class Player extends Phaser.Physics.Matter.Factory {
     declare cursors: Phaser.Types.Input.Keyboard.CursorKeys
@@ -17,7 +18,7 @@ export class Player extends Phaser.Physics.Matter.Factory {
         this.player = this.scene.matter.add.sprite(x, y, 'player', 0, {
             label: "player"
         })
-        this.weapon = new RocketLauncher(this.scene, this.player)
+        this.weapon = new PlasmaGun(this.scene, this.player)
         this.player.setFixedRotation()
         this.keyboard = this.scene.input.keyboard;
         
