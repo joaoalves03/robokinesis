@@ -17,6 +17,8 @@ export class Bullet extends Phaser.GameObjects.GameObjectFactory {
 
         const angle = Math.atan2(targetY - startY,targetX - startX)
 
+        this.bullet.setRotation(angle)
+        
         this.bullet.setVelocity(
             this.speed * Math.cos(angle),
             this.speed * Math.sin(angle)

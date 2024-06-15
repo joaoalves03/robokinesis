@@ -5,7 +5,7 @@ import type {BaseEnemy} from "@/game/entities/enemies/BaseEnemy"
 import {PaulEnemy} from "@/game/entities/enemies/Paul"
 
 export class EnemyManager {
-    private difficulty: number = -1
+    private difficulty: number = 0
     private scene: Phaser.Scene
     private enemyCount: number = 0
     private enemies: BaseEnemy[] = []
