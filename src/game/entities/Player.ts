@@ -19,7 +19,7 @@ export class Player extends Phaser.Physics.Matter.Factory {
         this.player = this.scene.matter.add.sprite(x, y, 'player', 0, {
             label: "player"
         })
-        this.weapon = new AssaultRifle(this.scene, this.player)
+        this.weapon = new RocketLauncher(this.scene, this.player)
         this.player.setFixedRotation()
         this.keyboard = this.scene.input.keyboard;
         

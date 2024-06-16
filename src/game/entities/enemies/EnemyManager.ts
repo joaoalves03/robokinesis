@@ -3,6 +3,7 @@ import {EventBus} from "@/game/EventBus"
 import type {Player} from "@/game/entities/Player"
 import type {BaseEnemy} from "@/game/entities/enemies/BaseEnemy"
 import {PaulEnemy} from "@/game/entities/enemies/Paul"
+import {FredEnemy} from "@/game/entities/enemies/Fred"
 
 export class EnemyManager {
     private difficulty: number = 0
@@ -32,7 +33,7 @@ export class EnemyManager {
                 selectedTile = tiles[Math.floor(Math.random() * tiles.length)][Math.floor(Math.random() * tiles.length)]
             } while(selectedTile.fillColor != 0xeeeeee)
 
-            this.enemies.push(new PaulEnemy(
+            this.enemies.push(new FredEnemy(
                 this.scene.matter.world,
                 selectedTile.x,
                 selectedTile.y,
