@@ -5,17 +5,13 @@ import  {type BaseWeapon} from "@/game/items/weapons/BaseWeapon"
 import {ChipType} from "@/game/items/chips/ChipType"
 
 export class ExampleEffectChip extends BaseChip {
-    constructor(player: Player) {
-        super(ChipType.EFFECT, 3, "Example Effect", "", player)
-    }
-    
-    onAcquire(scene: Phaser.Scene, player: Player): void {
+    constructor() {
+        super(ChipType.EFFECT, 3, "Example Effect", "")
     }
 
-    onExpire(scene: Phaser.Scene, player: Player): void {
+    onEnabled(player: Player): void {
     }
 
-    onSelected(scene: Phaser.Scene, player: Player): void | BaseWeapon {
-        return undefined
+    onDisabled(player: Player): void {
     }
 }

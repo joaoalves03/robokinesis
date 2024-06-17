@@ -12,21 +12,21 @@ import type {ChipType} from "@/game/items/chips/ChipType"
 export class ChipManager {
     private readonly player: Player
     private existing_chips: BaseChip[]
+    private active_chips: BaseChip[] = []
+    private selected_chip?: number
     
     constructor(player: Player) {
         this.player = player
         this.existing_chips = [
-            new RocketLauncherChip(this.player),
-            new PistolChip(this.player),
-            new AssaultRifleChip(this.player),
-            new PlasmaGunChip(this.player),
-            new ExampleItemChip(this.player),
-            new ExampleItemChip2(this.player),
-            new ExampleEffectChip(this.player)
+            new RocketLauncherChip(),
+            new PistolChip(),
+            new AssaultRifleChip(),
+            new PlasmaGunChip(),
+            new ExampleItemChip(),
+            new ExampleItemChip2(),
+            new ExampleEffectChip()
         ]
     }
-    
-    private active_chips: BaseChip[] = []
     
     getActiveChips() {
         return this.active_chips
@@ -67,5 +67,38 @@ export class ChipManager {
     
     uninstallChip(index: number) {
         this.active_chips.splice(index, 1)
+    }
+    
+    enableChip(index: number) {
+        if(index == this.selected_chip) {
+            console.log("A")
+            this.active_chips[this.selected_chip].onDisabled(this.player)
+            this.selected_chip = undefined
+        } else if (this.selected_chip == undefined) {
+            console.log("B")
+            if(index < this.active_chips.length) {
+                this.active_chips[index].onEnabled(this.player)
+                this.selected_chip = index
+            }
+        } else {
+            console.log("C")
+            this.active_chips[this.selected_chip].onDisabled(this.player)
+            this.active_chips[index].onEnabled(this.player)
+            this.selected_chip = index
+        }
+        
+        /*if(index == undefined) {
+            if(this.selected_chip == undefined) return
+            else {
+                this.active_chips[this.selected_chip].onDisabled(this.player)
+            }
+        } else {
+            if(this.selected_chip != undefined) {
+                this.active_chips[this.selected_chip].onDisabled(this.player)
+            }
+
+            if(index < this.active_chips.length)
+                this.active_chips[index].onEnabled(this.player)
+        }*/
     }
 }

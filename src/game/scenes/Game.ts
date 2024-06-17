@@ -48,6 +48,18 @@ export class GameScene extends Phaser.Scene {
             this.cameras.main.pan(player.x, player.y, 250, 'Linear', true);
             this.cameras.main.startFollow(player)
         })
+        
+        this.input.keyboard!.on("keydown-ONE", () => {
+            this.chipManager.enableChip(0)
+        })
+
+        this.input.keyboard!.on("keydown-TWO", () => {
+            this.chipManager.enableChip(1)
+        })
+
+        this.input.keyboard!.on("keydown-THREE", () => {
+            this.chipManager.enableChip(2)
+        })
     }
 
     update() {

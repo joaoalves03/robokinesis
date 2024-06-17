@@ -5,21 +5,23 @@ import type {Player} from "@/game/entities/Player"
 import {ChipType} from "@/game/items/chips/ChipType"
 import {PlasmaGun} from "@/game/items/weapons/PlasmaGun"
 
-export class PlasmaGunChip extends BaseChip implements WeaponChip {
+export class PlasmaGunChip extends BaseChip {
     weapon: BaseWeapon
 
-    constructor(player: Player) {
-        super(ChipType.WEAPON, -1, "Plasma Gun", "", player)
+    constructor() {
+        super(ChipType.WEAPON, -1, "Plasma Gun", "")
     }
 
-    onAcquire(scene: Phaser.Scene, player: Player): void {
-        this.weapon = new PlasmaGun(scene, player.getPlayer())
+    onEnabled(player: Player): void {
+        if(this.weapon) return
+        
+        this.weapon = new PlasmaGun(player.scene, player.getPlayer())
+        
+        player.setWeapon(this.weapon)
     }
 
-    onExpire(scene: Phaser.Scene, player: Player): void {
-    }
-
-    onSelected(scene: Phaser.Scene, player: Player): void | BaseWeapon {
-        return this.weapon
+    onDisabled(player: Player): void {
+        player.setWeapon(undefined)
+        this.weapon.weapon.destroy()
     }
 }

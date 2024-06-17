@@ -112,7 +112,7 @@ export class Player extends Phaser.Physics.Matter.Factory {
         this.health = n
     }
     
-    setWeapon(weapon: BaseWeapon) {
+    setWeapon(weapon: BaseWeapon | undefined) {
         this.weapon = weapon
     }
 }

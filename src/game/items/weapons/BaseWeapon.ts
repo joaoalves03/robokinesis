@@ -6,6 +6,7 @@ export abstract class BaseWeapon extends Phaser.GameObjects.GameObjectFactory {
     mouseAngle: number = 0
     fireRate: number
     recharging: boolean = false
+    disabled: boolean = false
 
     abstract fire(): void
     abstract altFire(): void
@@ -53,5 +54,15 @@ export abstract class BaseWeapon extends Phaser.GameObjects.GameObjectFactory {
             callback: () => {this.recharging = false},
             delay: this.fireRate
         })
+    }
+    
+    enable() {
+        this.weapon.setAlpha(1)
+        this.disabled = false
+    }
+    
+    disable() {
+        this.weapon.setAlpha(0)
+        this.disabled = true
     }
 }

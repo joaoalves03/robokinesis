@@ -15,7 +15,7 @@ export class RocketLauncher extends BaseWeapon {
     }
 
     fire(): void {
-        if(this.recharging) return
+        if(this.disabled || this.recharging) return
         
         const target = {
             x: this.scene.input.activePointer.x + this.scene.cameras.main.scrollX,

@@ -26,11 +26,13 @@ export class PlasmaGun extends BaseWeapon {
             this.weapon.y + 20 * Math.sin(this.mouseAngle)
         )
     }
-    
+
     altFire(): void {
     }
 
     fire(): void {
+        if(this.disabled) return
+        
         this.plasma = new Plasma(
             this.scene, 
             this.weapon.x + 20 * Math.cos(this.mouseAngle),

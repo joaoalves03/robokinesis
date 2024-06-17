@@ -4,7 +4,7 @@ import {Bullet} from "./projectiles/Bullet";
 
 export class Pistol extends BaseWeapon {
     constructor(scene: Phaser.Scene, _parent: Phaser.Physics.Matter.Image) {
-        super(scene, _parent,"playerShip", 500)
+        super(scene, _parent,"rocketLauncher", 500)
 
         this.scene.input.on('pointerdown', () => {
             this.fire()
@@ -12,7 +12,7 @@ export class Pistol extends BaseWeapon {
     }
 
     fire(): void {
-        if(this.recharging) return
+        if(this.disabled || this.recharging) return
 
         const target = {
             x: this.scene.input.activePointer.x + this.scene.cameras.main.scrollX,
@@ -23,6 +23,5 @@ export class Pistol extends BaseWeapon {
     }
 
     altFire(): void {
-
     }
 }

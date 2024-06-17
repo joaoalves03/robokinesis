@@ -1,27 +1,27 @@
 import {BaseChip} from "@/game/items/chips/BaseChip"
-import type {WeaponChip} from "@/game/items/chips/WeaponChip"
-import type {BaseWeapon} from "@/game/items/weapons/BaseWeapon"
-import Phaser from "phaser"
 import type {Player} from "@/game/entities/Player"
 import {Pistol} from "@/game/items/weapons/Pistol"
 import {ChipType} from "@/game/items/chips/ChipType"
+import type {BaseWeapon} from "@/game/items/weapons/BaseWeapon"
 
-export class PistolChip extends BaseChip implements WeaponChip {
+export class PistolChip extends BaseChip {
     weapon: BaseWeapon
-
-    constructor(player: Player) {
-        super(ChipType.WEAPON, -1, "Pistol", "", player)
-    }
     
-    onAcquire(scene: Phaser.Scene, player: Player): void {
-        this.weapon = new Pistol(scene, player.getPlayer())
+    constructor() {
+        super(ChipType.WEAPON, -1, "Pistol", "")
     }
 
-    onExpire(scene: Phaser.Scene, player: Player): void {
+    onEnabled(player: Player): void {
+        if(!this.weapon)
+        if(!this.weapon)
+            this.weapon = new Pistol(player.scene, player.getPlayer())
+        
+        this.weapon.enable()
+        player.setWeapon(this.weapon)
     }
 
-    onSelected(scene: Phaser.Scene, player: Player): void | BaseWeapon {
-        return this.weapon
+    onDisabled(player: Player): void {
+        this.weapon.disable()
+        player.setWeapon(undefined)
     }
-    
 }

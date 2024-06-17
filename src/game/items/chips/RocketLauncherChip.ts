@@ -1,25 +1,26 @@
 import {BaseChip} from "@/game/items/chips/BaseChip"
-import  {type BaseWeapon} from "@/game/items/weapons/BaseWeapon"
-import type {WeaponChip} from "@/game/items/chips/WeaponChip"
 import {RocketLauncher} from "@/game/items/weapons/RocketLauncher"
-import type {Player} from "@/game/entities/Player"
 import {ChipType} from "@/game/items/chips/ChipType"
+import {Player} from "@/game/entities/Player"
+import type {BaseWeapon} from "@/game/items/weapons/BaseWeapon"
 
-export class RocketLauncherChip extends BaseChip implements WeaponChip {
+export class RocketLauncherChip extends BaseChip {
     weapon: BaseWeapon
-
-    constructor(player: Player) {
-        super(ChipType.WEAPON, -1, "Rocket Launcher", "", player)
-    }
     
-    onAcquire(scene: Phaser.Scene, player: Player): void {
-        this.weapon = new RocketLauncher(scene, player.getPlayer())
+    constructor() {
+        super(ChipType.WEAPON, -1, "Rocket Launcher", "")
     }
 
-    onExpire(scene: Phaser.Scene, player: Player): void {
+    onEnabled(player: Player): void {
+        if(this.weapon) return
+
+        this.weapon = new RocketLauncher(player.scene, player.getPlayer())
+
+        player.setWeapon(this.weapon)
     }
 
-    onSelected(scene: Phaser.Scene, player: Player): void | BaseWeapon {
-        return this.weapon
+    onDisabled(player: Player): void {
+        player.setWeapon(undefined)
+        this.weapon.weapon.destroy()
     }
 }
