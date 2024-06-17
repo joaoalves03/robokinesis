@@ -4,13 +4,13 @@ export class Explosion extends Phaser.GameObjects.GameObjectFactory {
     private trigger
     private visuals: Phaser.GameObjects.Arc
     
-    constructor(scene: Phaser.Scene, x: number, y: number) {
+    constructor(scene: Phaser.Scene, x: number, y: number, radius: number = 40) {
         super(scene)
 
         this.trigger = this.scene.matter.add.circle(
             x,
             y,
-            40,
+            radius,
             {
                 isStatic: true,
                 label: "explosion",
@@ -32,7 +32,7 @@ export class Explosion extends Phaser.GameObjects.GameObjectFactory {
         this.visuals = this.scene.add.circle(
             x,
             y,
-            40,
+            radius,
             0xff0000
         )
 

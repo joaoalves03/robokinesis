@@ -89,6 +89,8 @@ export abstract class BaseEnemy extends Phaser.Physics.Matter.Factory {
     die() {
         // TODO: Add death effects
         this.enemy.destroy()
+        this.healthBar.clear()
+        this.healthBar.destroy()
         EventBus.emit("enemyDeath")
     }
 
