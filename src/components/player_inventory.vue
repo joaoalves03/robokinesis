@@ -32,14 +32,12 @@ function selectCard(i: number) {
     if (chipManager!.getActiveChips().length == 3) {
         selectedCard.value = cardsToSelect.value[i]
         return
-    } else if (chipManager!.getActiveChips().length == 0
-        || chipManager!.getActiveChips().length == 2) {
-        EventBus.emit("startRound")
-    }
+    } 
 
     chipManager!.installChip(cardsToSelect.value[i])
     cardsToSelect.value.splice(i, 1)
     chips.value = chipManager!.getActiveChips()
+    EventBus.emit("startRound")
 }
 
 function replaceCard(i: number) {
