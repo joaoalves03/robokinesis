@@ -71,34 +71,17 @@ export class ChipManager {
     
     enableChip(index: number) {
         if(index == this.selected_chip) {
-            console.log("A")
             this.active_chips[this.selected_chip].onDisabled(this.player)
             this.selected_chip = undefined
         } else if (this.selected_chip == undefined) {
-            console.log("B")
             if(index < this.active_chips.length) {
                 this.active_chips[index].onEnabled(this.player)
                 this.selected_chip = index
             }
         } else {
-            console.log("C")
             this.active_chips[this.selected_chip].onDisabled(this.player)
             this.active_chips[index].onEnabled(this.player)
             this.selected_chip = index
         }
-        
-        /*if(index == undefined) {
-            if(this.selected_chip == undefined) return
-            else {
-                this.active_chips[this.selected_chip].onDisabled(this.player)
-            }
-        } else {
-            if(this.selected_chip != undefined) {
-                this.active_chips[this.selected_chip].onDisabled(this.player)
-            }
-
-            if(index < this.active_chips.length)
-                this.active_chips[index].onEnabled(this.player)
-        }*/
     }
 }
