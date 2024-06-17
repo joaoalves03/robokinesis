@@ -96,6 +96,11 @@ export class Player extends Phaser.Physics.Matter.Factory {
                 true
             )
         }
+        
+        if(this.player.x < -200) this.player.setPosition(-30)
+        else if(this.player.x > 1300) this.player.setPosition(1224)
+        if(this.player.y < -200) this.player.setPosition(this.player.x, -24)
+        else if(this.player.y > 1300) this.player.setPosition(1224)
     }
 
     getPlayer() {

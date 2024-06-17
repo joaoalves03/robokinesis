@@ -35,19 +35,19 @@ export class Arena {
         this.newMap()
 
         this.arenaBounds = [
-            scene.matter.add.rectangle(x + 600, y - 46, 1300, 10, {
+            scene.matter.add.rectangle(x + 600, y - 540, 3280, 1000, {
                 isStatic: true,
                 label: "wall"
             }),
-            scene.matter.add.rectangle(x - 45, y + 600, 10, 1280, {
+            scene.matter.add.rectangle(x - 540, y + 600, 1000, 1300, {
                 isStatic: true,
                 label: "wall"
             }),
-            scene.matter.add.rectangle(x + 600, y + 1245, 1300, 10, {
+            scene.matter.add.rectangle(x + 600, y + 1740, 3280, 1000, {
                 isStatic: true,
                 label: "wall"
             }),
-            scene.matter.add.rectangle(x + 1245, y + 600, 10, 1280, {
+            scene.matter.add.rectangle(x + 1740, y + 600, 1000, 1280, {
                 isStatic: true,
                 label: "wall"
             }),
