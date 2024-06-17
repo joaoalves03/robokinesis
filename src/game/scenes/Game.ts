@@ -3,12 +3,14 @@ import {Arena} from "../objects/Arena"
 import {EnemyManager} from "../entities/enemies/EnemyManager"
 import {EventBus} from "@/game/EventBus"
 import {ChipManager} from "@/game/ChipManager"
+import {Background} from "@/game/objects/Background"
 
 export class GameScene extends Phaser.Scene {
     declare player: Player
     declare arena: Arena
     declare enemyManager?: EnemyManager
     private chipManager: ChipManager
+    private background: Background
 
 
     constructor() {
@@ -18,6 +20,7 @@ export class GameScene extends Phaser.Scene {
     create() {
         this.input.setPollAlways()
 
+        this.background = new Background(this.matter.scene)
         this.arena = new Arena(this.matter.scene, 0, 0)
         this.player = new Player(this.matter.world, 50, 50)
         this.chipManager = new ChipManager(this.player)
@@ -27,13 +30,11 @@ export class GameScene extends Phaser.Scene {
         EventBus.emit("startGame", this.chipManager)
 
         this.cameras.main.startFollow(this.player.getPlayer())
-
-        this.arena.findPath()
         
         EventBus.on("waveEnded", () => {
             this.cameras.main.stopFollow()
             this.cameras.main.setPosition(0, 0)
-            this.cameras.main.zoomTo(0.5, 500, 'Linear', true)
+            this.cameras.main.zoomTo(0.25, 500, 'Linear', true)
             this.cameras.main.pan(600, 600, 500, 'Linear', true);
         })
 

@@ -1,15 +1,8 @@
-import {Zombie} from "../entities/enemies/Zombie"
-import {EnemyManager} from "../entities/enemies/EnemyManager"
-import EasyStar from "easystarjs"
-import type {BaseEnemy} from "@/game/entities/enemies/BaseEnemy"
-import type {Player} from "@/game/entities/Player"
-
 export class Arena {
     private scene: Phaser.Scene
     private arenaBounds: MatterJS.BodyType[]
     private maps: string[]
     private arenaTiles: Phaser.GameObjects.Rectangle[][]
-    private pathfinder = new EasyStar.js()
 
     constructor(scene: Phaser.Scene, x: number, y: number) {
         this.scene = scene
@@ -52,10 +45,6 @@ export class Arena {
                 label: "wall"
             }),
         ]
-
-        this.pathfinder.setAcceptableTiles(0)
-        this.pathfinder.enableDiagonals()
-        this.pathfinder.setIterationsPerCalculation(1000)
     }
 
     private newMap() {
@@ -81,20 +70,6 @@ export class Arena {
                 }
             }
         }
-
-        this.pathfinder.setGrid(
-            this.arenaTiles
-                .map(x => x
-                    .map(y => y.fillColor == 0xeeeeee ? 0 : 1)
-                )
-        )
-    }
-
-    public findPath() {
-        this.pathfinder.findPath(0, 0, 4, 4, (path) => {
-            console.log(path)
-        })
-        this.pathfinder.calculate()
     }
     
     public getTiles() {
