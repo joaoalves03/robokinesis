@@ -6,12 +6,14 @@ export abstract class BaseChip {
     usesLeft: number // -1: Chip does not expire (ex.: Weapon)
     name: string
     image: string // URL to sprite
+    player: Player
 
-    constructor(type: ChipType, usesLeft: number, name: string, image: string) {
+    constructor(type: ChipType, usesLeft: number, name: string, image: string, player: Player) {
         this.type = type
         this.usesLeft = usesLeft
         this.name = name
         this.image = image
+        this.player = player
     }
 
     use(): void {

@@ -9,7 +9,7 @@ export class Player extends Phaser.Physics.Matter.Factory {
     declare cursors: Phaser.Types.Input.Keyboard.CursorKeys
     private readonly player: Phaser.Physics.Matter.Sprite
     private keyboard: Phaser.Input.Keyboard.KeyboardPlugin | null
-    private weapon: BaseWeapon
+    private weapon?: BaseWeapon
     private health: number = 100
     private lookingUp: boolean = false
 
@@ -19,7 +19,7 @@ export class Player extends Phaser.Physics.Matter.Factory {
         this.player = this.scene.matter.add.sprite(x, y, 'player', 0, {
             label: "player"
         })
-        this.weapon = new RocketLauncher(this.scene, this.player)
+        //this.weapon = new RocketLauncher(this.scene, this.player)
         this.player.setFixedRotation()
         this.keyboard = this.scene.input.keyboard;
         
@@ -62,7 +62,8 @@ export class Player extends Phaser.Physics.Matter.Factory {
     }
 
     update() {
-        this.weapon.update()
+        if(this.weapon != undefined)
+            this.weapon.update()
 
         this.lookingUp = this.scene.game.input.mousePointer!.y < this.scene.sys.game.canvas.height / 2
         this.player.setFlipX(this.scene.game.input.mousePointer!.x < this.scene.sys.game.canvas.width / 2)
@@ -105,5 +106,13 @@ export class Player extends Phaser.Physics.Matter.Factory {
 
     getPlayer() {
         return this.player
+    }
+    
+    setHealth(n: number) {
+        this.health = n
+    }
+    
+    setWeapon(weapon: BaseWeapon) {
+        this.weapon = weapon
     }
 }

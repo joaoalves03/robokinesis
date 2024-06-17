@@ -3,12 +3,13 @@ import  {type BaseWeapon} from "@/game/items/weapons/BaseWeapon"
 import type {WeaponChip} from "@/game/items/chips/WeaponChip"
 import {RocketLauncher} from "@/game/items/weapons/RocketLauncher"
 import type {Player} from "@/game/entities/Player"
+import {ChipType} from "@/game/items/chips/ChipType"
 
 export class RocketLauncherChip extends BaseChip implements WeaponChip {
     weapon: BaseWeapon
 
-    constructor() {
-        super(ChipType.WEAPON, -1, "Rocket Launcher", "")
+    constructor(player: Player) {
+        super(ChipType.WEAPON, -1, "Rocket Launcher", "", player)
     }
     
     onAcquire(scene: Phaser.Scene, player: Player): void {
@@ -21,5 +22,4 @@ export class RocketLauncherChip extends BaseChip implements WeaponChip {
     onSelected(scene: Phaser.Scene, player: Player): void | BaseWeapon {
         return this.weapon
     }
-
 }
