@@ -15,7 +15,6 @@ const selectedCard: Ref<BaseChip | undefined> = ref(undefined)
 EventBus.on("startGame", (_chipManager: ChipManager) => {
     chipManager = _chipManager
     cardsToSelect.value = chipManager.getRandomChips(ChipType.WEAPON)
-    console.log(cardsToSelect.value)
     showCardSelect.value = true
 })
 

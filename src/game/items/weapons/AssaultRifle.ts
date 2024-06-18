@@ -6,7 +6,7 @@ export class AssaultRifle extends BaseWeapon {
     private firingController
     
     constructor(scene: Phaser.Scene, _parent: Phaser.Physics.Matter.Image) {
-        super(scene, _parent,"rocketLauncher", 100)
+        super(scene, _parent,"rocketLauncher", 1)
 
         this.firingController = scene.time.addEvent({
             delay: 250,

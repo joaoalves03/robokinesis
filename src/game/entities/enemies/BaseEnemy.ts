@@ -34,28 +34,28 @@ export abstract class BaseEnemy extends Phaser.Physics.Matter.Factory {
 
         const onCollideWithPlayer = this.scene.time.addEvent({
             callback: () => {
-                EventBus.emit("damagePlayer", 10)
+                player.takeDamage(5)
             },
             delay: 1000,
             startAt: 1000,
             loop: true,
             paused: true
         })
-
-        // TODO: Figure out what the type here is
-        this.enemy.setOnCollide((pair: any) => {
+            
+        this.enemy.setOnCollide((pair: Phaser.Types.Physics.Matter.MatterCollisionData) => {
             if (pair.bodyA.label == "bullet" || pair.bodyB.label == "bullet") {
-                // TODO: Replace with bullet damage somehow?
                 this.takeDamage(20)
             } else if (pair.bodyA.label == "explosion" || pair.bodyB.label == "explosion") {
                 this.takeDamage(40)
-            } else if (pair.bodyA.label == "player" || pair.bodyB.label == "player") {
-                onCollideWithPlayer.startAt = 2000
-                onCollideWithPlayer.paused = false
             }
         })
 
-        this.enemy.setOnCollideEnd((pair: any) => {
+        this.enemy.setOnCollideWith(player.getPlayer().body as MatterJS.Body, () => {
+            onCollideWithPlayer.startAt = 2000
+            onCollideWithPlayer.paused = false
+        })
+        
+        this.enemy.setOnCollideEnd((pair: Phaser.Types.Physics.Matter.MatterCollisionData) => {
             if (pair.bodyA.label == "player" || pair.bodyB.label == "player") {
                 onCollideWithPlayer.paused = true
             }

@@ -4,8 +4,8 @@ import {ref} from "vue"
 
 const playerHealth = ref(100)
 
-EventBus.on("damagePlayer", (damage: number) => {
-    playerHealth.value = Math.max(0, playerHealth.value - damage)
+EventBus.on("updateHP", (n: number) => {
+    playerHealth.value = n
 })
 </script>
 

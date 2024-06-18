@@ -1,9 +1,5 @@
-import {Pistol} from "@/game/items/weapons/Pistol";
 import type {BaseWeapon} from "@/game/items/weapons/BaseWeapon";
 import {EventBus} from "../EventBus"
-import {RocketLauncher} from "@/game/items/weapons/RocketLauncher"
-import {PlasmaGun} from "@/game/items/weapons/PlasmaGun"
-import {AssaultRifle} from "@/game/items/weapons/AssaultRifle"
 
 export class Player extends Phaser.Physics.Matter.Factory {
     declare cursors: Phaser.Types.Input.Keyboard.CursorKeys
@@ -110,6 +106,11 @@ export class Player extends Phaser.Physics.Matter.Factory {
     
     setHealth(n: number) {
         this.health = n
+        EventBus.emit("updateHP", this.health)
+    }
+    
+    takeDamage(n: number) {
+        this.setHealth(Math.max(0, this.health - n))
     }
     
     setWeapon(weapon: BaseWeapon | undefined) {
