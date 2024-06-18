@@ -41,13 +41,13 @@ export class EnemyManager {
         })
     }
 
-    newWave(tiles: Phaser.GameObjects.Rectangle[][], player: Player) {
+    newWave(tiles: Phaser.GameObjects.Rectangle[], player: Player) {
         this.difficulty++
         
         for(let i = 0; i<this.difficulty; i++) {
             let selectedTile: Phaser.GameObjects.Rectangle
             do {
-                selectedTile = tiles[Math.floor(Math.random() * tiles.length)][Math.floor(Math.random() * tiles.length)]
+                selectedTile = tiles[Math.floor(Math.random() * tiles.length)]
             } while(selectedTile.fillColor != 0xeeeeee)
             
             this.enemies.push(

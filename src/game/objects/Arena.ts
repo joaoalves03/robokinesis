@@ -2,7 +2,7 @@ export class Arena {
     private scene: Phaser.Scene
     private arenaBounds: MatterJS.BodyType[]
     private maps: string[]
-    private arenaTiles: Phaser.GameObjects.Rectangle[][]
+    private arenaTiles: Phaser.GameObjects.Rectangle[]
 
     constructor(scene: Phaser.Scene, x: number, y: number) {
         this.scene = scene
@@ -10,10 +10,8 @@ export class Arena {
         this.arenaTiles = []
 
         for (let i = 0; i < 16; i++) {
-            const arr = []
-
             for (let j = 0; j < 16; j++) {
-                arr.push(scene.add.rectangle(
+                this.arenaTiles.push(scene.add.rectangle(
                     x + i * 80,
                     y + j * 80,
                     80,
@@ -21,8 +19,6 @@ export class Arena {
                     0xeeeeee
                 ))
             }
-
-            this.arenaTiles.push(arr)
         }
 
         this.newMap()
@@ -52,22 +48,20 @@ export class Arena {
             Math.floor(Math.random() * this.maps.length)
             ]
 
-        for (let i = 0; i < 16; i++) {
-            for (let j = 0; j < 16; j++) {
-                this.arenaTiles[i][j].setFillStyle(
-                    map[i] === '0'
-                        ? 0xeeeeee
-                        : 0x666666
-                )
+        for (let i = 0; i < 256; i++) {
+            this.arenaTiles[i].setFillStyle(
+                map[i] === '0'
+                    ? 0xeeeeee
+                    : 0x666666
+            )
 
-                if (map[i][j] === '1') {
-                    this.scene.matter.add.gameObject(this.arenaTiles[i][j], {
-                        isStatic: true,
-                        label: "wall"
-                    })
-                } else {
-                    this.scene.matter.world.remove(this.arenaTiles[i][j])
-                }
+            if (map[i] === '1') {
+                this.scene.matter.add.gameObject(this.arenaTiles[i], {
+                    isStatic: true,
+                    label: "wall"
+                })
+            } else {
+                this.scene.matter.world.remove(this.arenaTiles[i])
             }
         }
     }
