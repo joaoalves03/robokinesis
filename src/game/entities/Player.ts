@@ -23,7 +23,7 @@ export class Player extends Phaser.Physics.Matter.Factory {
         this.player.play("idleDown")
         
         EventBus.on("damagePlayer", (damage: number) => {
-            this.health = Math.max(0, this.health - damage)
+            this.takeDamage(damage)
         })
     }
     
