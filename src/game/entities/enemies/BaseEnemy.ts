@@ -47,6 +47,8 @@ export abstract class BaseEnemy extends Phaser.Physics.Matter.Factory {
                 this.takeDamage(20)
             } else if (pair.bodyA.label == "explosion" || pair.bodyB.label == "explosion") {
                 this.takeDamage(40)
+            } else if (pair.bodyA.label == "pellet" || pair.bodyB.label == "pellet") {
+                this.takeDamage(10)
             }
         })
 

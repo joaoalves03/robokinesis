@@ -8,6 +8,7 @@ import type {Player} from "@/game/entities/Player"
 import {AssaultRifleChip} from "@/game/items/chips/AssaultRifleChip"
 import {PlasmaGunChip} from "@/game/items/chips/PlasmaGunChip"
 import type {ChipType} from "@/game/items/chips/ChipType"
+import {ShotgunChip} from "@/game/items/chips/ShotgunChip"
 
 export class ChipManager {
     private readonly player: Player
@@ -22,6 +23,7 @@ export class ChipManager {
             new PistolChip(),
             new AssaultRifleChip(),
             new PlasmaGunChip(),
+            new ShotgunChip(),
             new ExampleItemChip(),
             new ExampleItemChip2(),
             new ExampleEffectChip()

@@ -15,12 +15,12 @@ export abstract class BaseWeapon extends Phaser.GameObjects.GameObjectFactory {
             scene: Phaser.Scene,
             _parent: Phaser.Physics.Matter.Image,
             texture: string | Phaser.Textures.Texture,
-            fireRate: number
+            firingDelay: number
     ) {
         super(scene)
         this.weapon = this.scene.add.image(_parent.x, _parent.y, texture)
         this.parent = _parent
-        this.fireRate = fireRate
+        this.fireRate = firingDelay
 
         this.scene.input.on('pointermove', (pointer: { x: number; y: number; }) => {
             this.mouseAngle = Phaser.Math.Angle.Between(

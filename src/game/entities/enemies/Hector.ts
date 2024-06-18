@@ -7,7 +7,7 @@ export class HectorEnemy extends BaseEnemy {
     private triggered = false
     
     constructor(world: Phaser.Physics.Matter.World, x: number, y: number, player: Player) {
-        super(world, x, y, "enemies", 500, player)
+        super(world, x, y, "enemies", 250, player)
 
         this.enemy.setOrigin(0.5, 0.5)
         

@@ -19,6 +19,7 @@ export class GameScene extends Phaser.Scene {
 
     create() {
         this.input.setPollAlways()
+        this.input.mouse!.disableContextMenu();
 
         this.background = new Background(this.matter.scene)
         this.arena = new Arena(this.matter.scene, 0, 0)
