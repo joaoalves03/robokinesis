@@ -78,6 +78,9 @@ export abstract class BaseEnemy extends Phaser.Physics.Matter.Factory {
     }
 
     takeDamage(damage: number) {
+        // If enemy already dead
+        if(this.enemy.displayList == null) return
+        
         this.health -= damage
 
         this.drawHealthBar()
