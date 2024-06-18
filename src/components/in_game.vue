@@ -17,9 +17,7 @@
 </script>
 
 <template>
-    <template v-if="showInfo">
-        <round_info />
-        <player_health />
-    </template>
+    <round_info :class="showInfo ? '' : '!hidden'" />
+    <player_health :class="showInfo ? '' : '!hidden'" />
     <inventory />
 </template>
