@@ -84,4 +84,9 @@ export class HectorEnemy extends BaseEnemy {
             this.enemy.setVelocity(x, y)
         }
     }
+    
+    takeDamage(damage: number) {
+        if(!this.triggered)
+            super.takeDamage(damage)
+    }
 }
