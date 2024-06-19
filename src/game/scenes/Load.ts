@@ -31,7 +31,7 @@ export class LoadScene extends Phaser.Scene {
         this.load.spritesheet("enemies", enemies, {frameWidth: 32, frameHeight: 32})
         
         this.load.on("complete", () => {
-            this.scene.switch("gameScene")
+            this.scene.switch("mainMenuScene")
         })
     }
 }
