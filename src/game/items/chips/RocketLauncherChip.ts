@@ -8,7 +8,7 @@ export class RocketLauncherChip extends BaseChip {
     weapon: BaseWeapon
     
     constructor() {
-        super(ChipType.WEAPON, -1, "Rocket Launcher", "")
+        super(ChipType.WEAPON, -1, "Rocket Launcher", "/assets/chips/rocket.png")
     }
 
     onEnabled(player: Player): void {

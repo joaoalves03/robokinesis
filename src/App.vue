@@ -26,7 +26,19 @@ EventBus.on("goToMainMenu", () => {
 </template>
 
 <style lang="postcss">
+@font-face {
+    font-family: 'AppleIIPro';
+    src: url('/assets/Apple II Pro.otf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    @apply h-full bg-black flex items-center;
+}
+
 #app {
-    @apply relative h-full w-full bg-black 
+    font-family: 'AppleIIPro',sans-serif;
+    @apply relative aspect-video max-h-screen w-full bg-black flex items-center overflow-hidden;
 }
 </style>
