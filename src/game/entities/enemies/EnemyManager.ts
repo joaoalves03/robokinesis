@@ -5,6 +5,7 @@ import type {BaseEnemy} from "@/game/entities/enemies/BaseEnemy"
 import {PaulEnemy} from "@/game/entities/enemies/Paul"
 import {FredEnemy} from "@/game/entities/enemies/Fred"
 import {HectorEnemy} from "@/game/entities/enemies/Hector"
+import Vector2 = Phaser.Math.Vector2
 
 // Black magic
 type Constructor<T = {}> = new (...args: any[]) => T
@@ -41,14 +42,12 @@ export class EnemyManager {
         })
     }
 
-    newWave(tiles: Phaser.GameObjects.Rectangle[], player: Player) {
+    newWave(tiles: (Phaser.GameObjects.Sprite | Vector2)[], player: Player) {
         this.difficulty++
+        const validTiles = tiles.filter(x => x instanceof Vector2)
         
         for(let i = 0; i<this.difficulty; i++) {
-            let selectedTile: Phaser.GameObjects.Rectangle
-            do {
-                selectedTile = tiles[Math.floor(Math.random() * tiles.length)]
-            } while(selectedTile.fillColor != 0xeeeeee)
+            const selectedTile = validTiles[Math.floor(Math.random() * validTiles.length)]
             
             this.enemies.push(
                 new EnemyManager.mediumTierEnemies[Math.floor(Math.random() * EnemyManager.mediumTierEnemies.length)](

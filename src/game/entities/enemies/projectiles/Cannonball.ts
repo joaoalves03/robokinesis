@@ -41,7 +41,6 @@ export class EnemyCannonball extends Phaser.GameObjects.GameObjectFactory {
         
         this.cannonball.setOnCollide((pair: Phaser.Types.Physics.Matter.MatterCollisionData) => {
             if(pair.bodyA.label == "player" || pair.bodyB.label == "player"){
-                console.log("ayy")
                 EventBus.emit("damagePlayer", 25)
             }
         })

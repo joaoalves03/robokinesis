@@ -53,9 +53,7 @@ export class Shotgun extends BaseWeapon {
         }
 
         this.cartridges -= 1
-        console.log(this.cartridges)
         if (this.cartridges == 0) {
-            console.log("reload")
             this.reload()
             this.scene.time.addEvent({
                 delay: this.reloadTime,

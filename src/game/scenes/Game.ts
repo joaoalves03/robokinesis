@@ -43,6 +43,7 @@ export class GameScene extends Phaser.Scene {
             if(this.enemyManager == undefined)
                 this.enemyManager = new EnemyManager(this.matter.scene)
             
+            this.arena.newMap()
             this.enemyManager!.newWave(this.arena.getTiles(), this.player)
             this.cameras.main.zoomTo(1.0, 250, 'Linear', true)
             this.player.setHealth(100)
