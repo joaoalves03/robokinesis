@@ -32,7 +32,9 @@
 
 <style scoped lang="postcss">
     .content {
-        @apply absolute top-8 w-full flex flex-col items-center;
+        @apply absolute w-full flex flex-col items-center
+        top-0 xl:top-8
+        scale-50 lg:scale-75 xl:scale-100;
         
         > div {
             @apply text-white inline-flex flex-col items-center bg-black bg-opacity-50 p-4 rounded-xl;

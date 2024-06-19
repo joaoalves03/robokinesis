@@ -9,7 +9,7 @@ export class PlasmaGunChip extends BaseChip {
     weapon: BaseWeapon
 
     constructor() {
-        super(ChipType.WEAPON, -1, "Plasma Gun", "")
+        super(ChipType.WEAPON, -1, "Plasma Gun", "/assets/chips/plasma.png")
     }
 
     onEnabled(player: Player): void {

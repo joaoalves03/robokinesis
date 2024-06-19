@@ -56,16 +56,22 @@ function skip() {
 
 <template>
     <div v-if="showCardSelect"
-         class="absolute top-0 bottom-0 w-full h-full flex flex-col justify-center items-center gap-8"
+         class="absolute top-0 bottom-0 w-full h-full flex flex-col justify-center items-center gap-8 scale-50 lg:scale-75 xl:scale-100"
     >
         <div class="flex flex-row justify-center items-center gap-8">
             <div
                 v-for="(item, index) in cardsToSelect"
                 @click="selectCard(index)"
                 :key="index"
-                class="bg-white hover:bg-gray-400 p-8"
-                :class="selectedCard == item ? 'border-2 border-yellow-400' : ''">
-                {{ item.name }}
+                class="relative transition-all duration-150 ease-in-out"
+                :class="selectedCard == undefined ? 'scale-125 m-2' : selectedCard == item ? 'scale-150' : 'scale-95 brightness-50'">
+                <img :src="`/assets/chips/${item.type}.png`" class="relative z-10" alt="">
+                <img :src="item.image" alt="" class="absolute top-[0.8rem] right-[0.8rem] z-0" />
+                <div class="absolute w-[6.8rem] bottom-12 left-4 pl-1 z-20 overflow-hidden whitespace-nowrap">
+                    <p class="text-sm text-white "
+                       :class="item.name.length > 8 ? 'animate-ping-pong-scroll' : ''"
+                    >{{ item.name }}</p>
+                </div>
             </div>
         </div>
         <div v-if="chipManager!.getActiveChips().length == 3"
@@ -75,15 +81,34 @@ function skip() {
         </div>
     </div>
 
-    <div class="absolute bottom-0 flex flex-row gap-8 w-full justify-center"
-         :class="selectedCard == undefined ? 'non-interactive' : 'gap-16 pb-8'">
-        <div
-            v-for="(item, index) in chips"
-            :key="index"
-            @click="replaceCard(index)"
-            class="bg-purple-600 hover:bg-purple-800 p-8 h-32 flex items-center"
-            :class="selectedCard == undefined ? '' : 'scale-110'">
-            {{ item.name }}
+    <div class="absolute flex w-full justify-center -bottom-8 lg:-bottom-2 xl:bottom-4 scale-50 lg:scale-75 xl:scale-100"
+         :class="selectedCard == undefined ? 'non-interactive' : ''">
+        
+        <img class="bottom-6 absolute z-0" src="/assets/chips/chip-container-top.png" alt=""/>
+        
+        <div class="relative grid grid-cols-3 gap-3 z-10">
+            <div
+                v-for="(item, index) in chips"
+                :key="index"
+                @click="replaceCard(index)"
+                class="relative -bottom-3 transition-all duration-150 ease-in-out"
+                :class="selectedCard == undefined ? '' : 'hover:bottom-0'">
+                <img :src="`/assets/chips/${item.type}.png`" class="relative z-10" alt="">
+                <img :src="item.image" alt="" class="absolute top-[0.8rem] right-[0.8rem] z-0" />
+                <div class="absolute w-24 bottom-12 left-5 z-20 overflow-hidden whitespace-nowrap">
+                    <p class="text-sm text-white "
+                       :class="item.name.length > 8 ? 'hover:animate-ping-pong-scroll' : ''"
+                    >{{ item.name }}</p>
+                </div>
+            </div>
+        </div>
+        
+        <img class="-bottom-24 absolute z-20" src="/assets/chips/chip-container-bottom.png" alt=""/>
+        
+        <div class="absolute grid grid-cols-3 z-30 place-items-center -bottom-1 w-[480px]">
+            <img src="/assets/chips/button-1.png" class="bg-yellow-300" alt=""/>
+            <img src="/assets/chips/button-2.png" alt=""/>
+            <img src="/assets/chips/button-3.png" alt=""/>
         </div>
     </div>
 </template>
