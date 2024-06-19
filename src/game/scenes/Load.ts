@@ -5,6 +5,7 @@ import rocketLauncher from '/assets/weapons/rocketlauncher.png'
 import plasma from '/assets/projectiles/plasma.png'
 import server from '/assets/objects/server.png'
 import paul from '/assets/enemies/paul.png'
+import {EventBus} from "@/game/EventBus"
 
 export class LoadScene extends Phaser.Scene {
     constructor() {
@@ -35,7 +36,12 @@ export class LoadScene extends Phaser.Scene {
         this.load.image("rocketLauncher", rocketLauncher)
         this.load.spritesheet("enemies", enemies, {frameWidth: 32, frameHeight: 32})
         
+        
+        this.load.on("progress", (progress: number) => {
+            EventBus.emit("loadProgress", progress)
+        })
         this.load.on("complete", () => {
+            EventBus.emit("goToMainMenu")
             this.scene.switch("mainMenuScene")
         })
     }
