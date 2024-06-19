@@ -2,7 +2,6 @@ import {BaseEnemy} from "@/game/entities/enemies/BaseEnemy"
 import Phaser from "phaser"
 import type {Player} from "@/game/entities/Player"
 import {EnemyLaser} from "@/game/entities/enemies/projectiles/Laser"
-import {EventBus} from "@/game/EventBus"
 
 export class PaulEnemy extends BaseEnemy {
     firingController: Phaser.Time.TimerEvent
@@ -10,60 +9,58 @@ export class PaulEnemy extends BaseEnemy {
     ragingController: Phaser.Time.TimerEvent
     ragingEffect: Phaser.GameObjects.Arc
     ragingEffectTween: Phaser.Tweens.TweenChain
+    firingAngle: number = 0
+    private referencePoint: Phaser.GameObjects.Rectangle
 
     constructor(world: Phaser.Physics.Matter.World, x: number, y: number, player: Player) {
         super(world, x, y, "paul", 200, player)
 
         this.enemy.anims.create({
             key: 'idle',
-            frames: this.scene.anims.generateFrameNumbers('paul', { start: 0, end: 3 }),
+            frames: this.scene.anims.generateFrameNumbers('paul', {start: 0, end: 3}),
             frameRate: 5,
             repeat: -1
         })
 
         this.enemy.anims.create({
             key: 'idleToRage',
-            frames: this.scene.anims.generateFrameNumbers('paul', { start: 13, end: 14 }),
+            frames: this.scene.anims.generateFrameNumbers('paul', {start: 13, end: 14}),
             frameRate: 5,
             repeat: 0
         })
 
         this.enemy.anims.create({
             key: 'rage',
-            frames: this.scene.anims.generateFrameNumbers('paul', { start: 25, end: 36 }),
+            frames: this.scene.anims.generateFrameNumbers('paul', {start: 25, end: 36}),
             frameRate: 5,
             repeat: -1
         })
-        
+
         this.enemy.play("idle")
-        
+
         this.enemy.setOrigin(0.5, 0.5)
         this.ragingEffect = this.scene.add.circle(
             this.enemy.x, this.enemy.y, 0, 0xff0000, 0.5
         )
+
+        this.referencePoint = this.scene.add.rectangle(this.enemy.x, this.enemy.y, 1, 1, 0, 0)
 
         this.firingController = this.scene.time.addEvent({
             delay: 1500,
             startAt: 1500,
             loop: true,
             callback: () => {
-                const player = this.player.getPlayer()
-
                 for (let i = 0; i < 3; i++) {
                     this.scene.time.delayedCall(
                         i * 100,
                         () => {
-                            if(this.enemy) {
-                                const angle
-                                    = Phaser.Math.Angle.Between(
-                                    this.enemy.x, this.enemy.y, this.player.getPlayer().x, this.player.getPlayer().y)
-
+                            if (this.enemy) {
                                 new EnemyLaser(
                                     this.scene,
-                                    (this.enemy.x + 20) * Math.cos(angle),
-                                    (this.enemy.y + 20) * Math.sin(angle),
-                                    this.player.getPlayer().x * Math.cos(angle),
-                                    this.player.getPlayer().y * Math.sin(angle)
+                                    this.referencePoint.x + 20 * Math.cos(this.referencePoint.rotation),
+                                    this.referencePoint.y + 20 * Math.sin(this.referencePoint.rotation),
+                                    player.getPlayer().x,
+                                    player.getPlayer().y
                                 )
                             }
                         }
@@ -71,7 +68,7 @@ export class PaulEnemy extends BaseEnemy {
                 }
             }
         })
-        
+
         this.ragingController = this.scene.time.addEvent({
             delay: 5000,
             callback: () => {
@@ -82,7 +79,7 @@ export class PaulEnemy extends BaseEnemy {
                     duration: 600,
                     scale: 1.4
                 })
-                
+
                 this.enemy.on("animationcomplete", () => {
                     this.enemy.play("rage")
                     this.raging = true
@@ -111,17 +108,13 @@ export class PaulEnemy extends BaseEnemy {
                         startAt: 100,
                         loop: true,
                         callback: () => {
-                            if(this.enemy) {
-                                const angle
-                                    = Phaser.Math.Angle.Between(
-                                        this.enemy.x, this.enemy.y, this.player.getPlayer().x, this.player.getPlayer().y)
-                                
+                            if (this.enemy) {
                                 new EnemyLaser(
                                     this.scene,
-                                    this.enemy.x + 50 * Math.cos(angle),
-                                    this.enemy.y + 50 * Math.sin(angle),
-                                    this.player.getPlayer().x * Math.cos(angle),
-                                    this.player.getPlayer().y * Math.sin(angle)
+                                    this.enemy.x + 20 * Math.cos(this.referencePoint.rotation),
+                                    this.enemy.y + 20 * Math.sin(this.referencePoint.rotation),
+                                    this.enemy.x + 40 * Math.cos(this.referencePoint.rotation),
+                                    this.enemy.y + 40 * Math.sin(this.referencePoint.rotation)
                                 )
                             }
                         }
@@ -133,28 +126,28 @@ export class PaulEnemy extends BaseEnemy {
 
     update() {
         super.update()
-        
+
         if (this.raging) {
-            //this.enemy.rotation += 0.005 * this.scene.sys.game.loop.delta
-            
+            this.referencePoint.rotation += 0.005 * this.scene.sys.game.loop.delta
+
             // I love null checks
-            if(this.ragingEffect) {
+            if (this.ragingEffect) {
                 this.ragingEffect.setPosition(this.enemy.x, this.enemy.y)
             }
-        } /*else
-            this.enemy.setRotation(
+        } else
+            this.referencePoint.setRotation(
                 Phaser.Math.Angle.Between(this.enemy.x, this.enemy.y, this.player.getPlayer().x, this.player.getPlayer().y)
-            )*/
+            )
     }
-    
+
     die() {
         this.firingController.destroy()
         this.ragingController.destroy()
         if (this.raging) {
             this.ragingEffectTween.destroy()
         }
-        if(this.ragingEffect) this.ragingEffect.destroy()
-        this.enemy.destroy()
-        EventBus.emit("enemyDeath")
+        if (this.ragingEffect) this.ragingEffect.destroy()
+        this.referencePoint.destroy()
+        super.die()
     }
 }
