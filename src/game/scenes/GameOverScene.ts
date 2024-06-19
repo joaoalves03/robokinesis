@@ -72,9 +72,20 @@ export class GameOverScene extends Phaser.Scene {
             }
         })
         
-        EventBus.on("goToMainMenu", () => {
+        const game_goToMainMenu = () => {
             this.scene.start("mainMenuScene")
-        })
+            EventBus.removeListener("game_goToMainMenu", game_goToMainMenu)
+            EventBus.removeListener("game_playAgain", game_playAgain)
+        }
+
+        const game_playAgain = () => {
+            this.scene.start("gameScene")
+            EventBus.removeListener("game_playAgain", game_playAgain)
+            EventBus.removeListener("game_goToMainMenu", game_goToMainMenu)
+        }
+        
+        EventBus.on("game_goToMainMenu", game_goToMainMenu)
+        EventBus.on("game_playAgain", game_playAgain)
     }
 
     drawCircle(x: number, y: number) {

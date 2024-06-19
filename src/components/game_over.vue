@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ref} from "vue"
+import {onBeforeUnmount, ref} from "vue"
 import {EventBus} from "@/game/EventBus"
 
 const round = ref(0)
@@ -21,32 +21,46 @@ function formatTimeDifference(startTimestamp: number, endTimestamp: number) {
     return `${formattedMinutes}:${formattedSeconds}`
 }
 
-EventBus.on("startGame", () => {
+function startGame() {
     start = Date.now()
     killCount.value = 0
     round.value = 0
-})
+}
 
-EventBus.on("newWave", () => {
+function newWave() {
     round.value += 1
-})
+}
 
-EventBus.on("playerDeath", () => {
+function playerDeath() {
     end = Date.now()
     time.value = formatTimeDifference(start, end)
-})
+}
 
-EventBus.on("enemyDeath", () => {
+function enemyDeath() {
     killCount.value += 1
-})
+}
+
+EventBus.on("startGame", startGame)
+EventBus.on("newWave", newWave)
+EventBus.on("playerDeath", playerDeath)
+EventBus.on("enemyDeath", enemyDeath)
 
 function playAgain() {
     EventBus.emit("playAgain")
+    EventBus.emit("game_playAgain")
 }
 
 function goToMainMenu() {
     EventBus.emit("goToMainMenu")
+    EventBus.emit("game_goToMainMenu")
 }
+
+onBeforeUnmount(() => {
+    EventBus.removeListener("startGame", startGame)
+    EventBus.removeListener("newWave", newWave)
+    EventBus.removeListener("playerDeath", playerDeath)
+    EventBus.removeListener("enemyDeath", enemyDeath)
+})
 
 </script>
 
@@ -68,7 +82,7 @@ function goToMainMenu() {
             </div>
         </div>
         <div class="flex flex-col justify-center">
-            <div class="button">Play again</div>
+            <div class="button" @click="playAgain">Play again</div>
             <div class="button" @click="goToMainMenu">Return to menu</div>
         </div>
     </div>

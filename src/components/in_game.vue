@@ -3,7 +3,7 @@
     import Player_health from "./player_health.vue"
     import Round_info from "./round_info.vue"
     import {EventBus} from "@/game/EventBus"
-    import {ref} from "vue"
+    import {onBeforeUnmount, ref} from "vue"
     import Game_over from "@/components/game_over.vue"
     
     const showInfo = ref(false)
@@ -19,6 +19,18 @@
 
     EventBus.on("showGameOverScreen", () => {
         gameOver.value = true
+    })
+    
+    EventBus.on("playAgain", () => {
+        gameOver.value = false
+        showInfo.value = false
+    })
+    
+    onBeforeUnmount(() => {
+        EventBus.removeListener("startRound")
+        EventBus.removeListener("waveEnded")
+        EventBus.removeListener("showGameOverScreen")
+        EventBus.removeListener("playAgain")
     })
 </script>
 

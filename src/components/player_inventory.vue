@@ -27,16 +27,21 @@ EventBus.on("startRound", () => {
     showCardSelect.value = false
 })
 
+EventBus.on("playAgain", () => {
+    chips.value = []
+})
+
 function selectCard(i: number) {
     if (chipManager!.getActiveChips().length == 3) {
         selectedCard.value = cardsToSelect.value[i]
         return
-    } 
+    }
 
     chipManager!.installChip(cardsToSelect.value[i])
     cardsToSelect.value.splice(i, 1)
     chips.value = chipManager!.getActiveChips()
     EventBus.emit("startRound")
+    EventBus.emit("game_startRound")
 }
 
 function replaceCard(i: number) {
@@ -47,10 +52,12 @@ function replaceCard(i: number) {
     chips.value = chipManager!.getActiveChips()
     selectedCard.value = undefined
     EventBus.emit("startRound")
+    EventBus.emit("game_startRound")
 }
 
 function skip() {
     EventBus.emit("startRound")
+    EventBus.emit("game_startRound")
 }
 </script>
 

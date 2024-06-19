@@ -42,7 +42,8 @@ export class LoadScene extends Phaser.Scene {
         })
         this.load.on("complete", () => {
             EventBus.emit("goToMainMenu")
-            this.scene.switch("mainMenuScene")
+            EventBus.emit("game_goToMainMenu")
+            this.scene.start("mainMenuScene")
         })
     }
 }

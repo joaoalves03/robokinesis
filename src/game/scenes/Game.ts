@@ -31,15 +31,15 @@ export class GameScene extends Phaser.Scene {
         EventBus.emit("startGame", this.chipManager)
 
         this.cameras.main.startFollow(this.player.getPlayer())
-        
-        EventBus.on("waveEnded", () => {
+
+        const waveEnded = () => {
             this.cameras.main.stopFollow()
             this.cameras.main.setPosition(0, 0)
             this.cameras.main.zoomTo(0.25, 500, 'Linear', true)
-            this.cameras.main.pan(600, 600, 500, 'Linear', true);
-        })
+            this.cameras.main.pan(600, 600, 500, 'Linear', true)
+        }
 
-        EventBus.on("startRound", () => {
+        const game_startRound = () => {
             if(this.enemyManager == undefined) {
                 this.enemyManager = new EnemyManager(this.matter.scene)
             }
@@ -50,7 +50,10 @@ export class GameScene extends Phaser.Scene {
             const player = this.player.getPlayer()
             this.cameras.main.pan(player.x, player.y, 250, 'Linear', true);
             this.cameras.main.startFollow(player)
-        })
+        }
+        
+        EventBus.on("waveEnded", waveEnded)
+        EventBus.on("game_startRound", game_startRound)
         
         EventBus.on("playerDeath", () => {
             this.registry.set("playerPosition", {
@@ -63,9 +66,10 @@ export class GameScene extends Phaser.Scene {
             
             EventBus.removeListener("playerDeath")
             EventBus.removeListener("enemyDeath")
-            EventBus.removeListener("startRound")
+            EventBus.removeListener("game_startRound")
+            EventBus.removeListener("waveEnded", waveEnded)
             
-            this.scene.switch("gameOverScene")
+            this.scene.start("gameOverScene")
         })
         
         this.input.keyboard!.on("keydown-ONE", () => {
