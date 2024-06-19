@@ -1,6 +1,12 @@
+import {EventBus} from "@/game/EventBus"
+
 export class MainMenuScene extends Phaser.Scene {
     constructor() {
         super("mainMenuScene")
+        
+        EventBus.on("play", () => {
+            this.scene.switch("gameScene")
+        })
     }
     
     create() {

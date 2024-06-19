@@ -10,7 +10,7 @@
     <div class="absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center gap-2">
         <div class="text-white text-7xl font-bold">RoboKinesis</div>
         <div class="flex flex-col justify-center">
-            <div class="button">Play</div>
+            <div class="button" @click="play">Play</div>
         </div>
     </div>
 </template>
