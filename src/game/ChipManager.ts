@@ -38,7 +38,7 @@ export class ChipManager {
     
     getRandomChips(filter: ChipType | undefined = undefined) {
         let filteredChips = this.existing_chips.filter(x => !this.active_chips.find(
-            y => x === y
+            y => x.name === y.name
         ))
 
         if(filter != undefined)
