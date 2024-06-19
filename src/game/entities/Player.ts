@@ -111,6 +111,12 @@ export class Player extends Phaser.Physics.Matter.Factory {
     
     takeDamage(n: number) {
         this.setHealth(Math.max(0, this.health - n))
+        
+        if(this.health == 0) this.die()
+    }
+    
+    die() {
+        EventBus.emit("playerDeath")
     }
     
     setWeapon(weapon: BaseWeapon | undefined) {

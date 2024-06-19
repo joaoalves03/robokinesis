@@ -4,8 +4,10 @@
     import Round_info from "./round_info.vue"
     import {EventBus} from "@/game/EventBus"
     import {ref} from "vue"
+    import Game_over from "@/components/game_over.vue"
     
     const showInfo = ref(false)
+    const gameOver = ref(false)
 
     EventBus.on("startRound", () => {
         showInfo.value = true
@@ -14,10 +16,15 @@
     EventBus.on("waveEnded", () => {
         showInfo.value = false
     })
+
+    EventBus.on("showGameOverScreen", () => {
+        gameOver.value = true
+    })
 </script>
 
 <template>
-    <round_info :class="showInfo ? '' : '!hidden'" />
-    <player_health :class="showInfo ? '' : '!hidden'" />
-    <inventory />
+    <round_info :class="showInfo && !gameOver ? '' : '!hidden'" />
+    <player_health :class="showInfo && !gameOver ? '' : '!hidden'" />
+    <inventory :class="gameOver ? '!hidden' : ''" />
+    <game_over :class="gameOver ? '' : '!hidden'" />
 </template>

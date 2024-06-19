@@ -45,11 +45,16 @@ export class GameScene extends Phaser.Scene {
             
             this.arena.newMap()
             this.enemyManager!.newWave(this.arena.getTiles(), this.player)
-            this.cameras.main.zoomTo(1.0, 250, 'Linear', true)
+            this.cameras.main.zoomTo(2, 250, 'Linear', true)
             this.player.setHealth(100)
             const player = this.player.getPlayer()
             this.cameras.main.pan(player.x, player.y, 250, 'Linear', true);
             this.cameras.main.startFollow(player)
+        })
+        
+        EventBus.on("playerDeath", () => {
+            this.registry.set("playerPosition", {x: this.player.getPlayer().x, y: this.player.getPlayer().y})
+            this.scene.switch("gameOverScene")
         })
         
         this.input.keyboard!.on("keydown-ONE", () => {

@@ -4,6 +4,7 @@ import {MapEditorScene} from "./scenes/MapEditor"
 import Center = Phaser.Scale.Center
 import {LoadScene} from "@/game/scenes/Load"
 import {MainMenuScene} from "@/game/scenes/MainMenuScene"
+import {GameOverScene} from "@/game/scenes/GameOverScene"
 
 const config: Phaser.Types.Core.GameConfig = {
     type: AUTO,
@@ -30,6 +31,7 @@ const config: Phaser.Types.Core.GameConfig = {
         LoadScene,
         MainMenuScene,
         GameScene,
+        GameOverScene,
         MapEditorScene
     ]
 };

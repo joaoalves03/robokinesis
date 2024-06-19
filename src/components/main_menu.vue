@@ -17,6 +17,6 @@
 
 <style scoped lang="postcss">
     .button {
-        @apply text-white text-3xl py-2 px-8 rounded-full transition-all hover:bg-red-500 select-none cursor-pointer;
+        @apply text-center text-white text-3xl py-2 px-8 rounded-full transition-all hover:bg-red-500 select-none cursor-pointer;
     }
 </style>

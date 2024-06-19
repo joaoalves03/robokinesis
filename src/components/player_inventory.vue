@@ -55,35 +55,37 @@ function skip() {
 </script>
 
 <template>
-    <div v-if="showCardSelect"
-         class="absolute top-0 bottom-0 w-full h-full flex flex-col justify-center items-center gap-8"
-    >
-        <div class="flex flex-row justify-center items-center gap-8">
-            <div
-                v-for="(item, index) in cardsToSelect"
-                @click="selectCard(index)"
-                :key="index"
-                class="bg-white hover:bg-gray-400 p-8"
-                :class="selectedCard == item ? 'border-2 border-yellow-400' : ''">
-                {{ item.name }}
+    <div>
+        <div v-if="showCardSelect"
+             class="absolute top-0 bottom-0 w-full h-full flex flex-col justify-center items-center gap-8"
+        >
+            <div class="flex flex-row justify-center items-center gap-8">
+                <div
+                    v-for="(item, index) in cardsToSelect"
+                    @click="selectCard(index)"
+                    :key="index"
+                    class="bg-white hover:bg-gray-400 p-8"
+                    :class="selectedCard == item ? 'border-2 border-yellow-400' : ''">
+                    {{ item.name }}
+                </div>
+            </div>
+            <div v-if="chipManager!.getActiveChips().length == 3"
+                 @click="skip()"
+                 class="bg-white rounded-xl py-2 px-4 hover:bg-gray-400">
+                Skip
             </div>
         </div>
-        <div v-if="chipManager!.getActiveChips().length == 3"
-             @click="skip()"
-             class="bg-white rounded-xl py-2 px-4 hover:bg-gray-400">
-            Skip
-        </div>
-    </div>
 
-    <div class="absolute bottom-0 flex flex-row gap-8 w-full justify-center"
-         :class="selectedCard == undefined ? 'non-interactive' : 'gap-16 pb-8'">
-        <div
-            v-for="(item, index) in chips"
-            :key="index"
-            @click="replaceCard(index)"
-            class="bg-purple-600 hover:bg-purple-800 p-8 h-32 flex items-center"
-            :class="selectedCard == undefined ? '' : 'scale-110'">
-            {{ item.name }}
+        <div class="absolute bottom-0 flex flex-row gap-8 w-full justify-center"
+             :class="selectedCard == undefined ? 'non-interactive' : 'gap-16 pb-8'">
+            <div
+                v-for="(item, index) in chips"
+                :key="index"
+                @click="replaceCard(index)"
+                class="bg-purple-600 hover:bg-purple-800 p-8 h-32 flex items-center"
+                :class="selectedCard == undefined ? '' : 'scale-110'">
+                {{ item.name }}
+            </div>
         </div>
     </div>
 </template>
