@@ -1,4 +1,5 @@
 import eugene from '/assets/eugene.png'
+import eugene_single from '/assets/eugene_single.png'
 import enemies from '/assets/enemies.png'
 import rocketLauncher from '/assets/weapons/rocketlauncher.png'
 import plasma from '/assets/projectiles/plasma.png'
@@ -14,6 +15,10 @@ export class LoadScene extends Phaser.Scene {
         this.load.spritesheet("player", eugene, {
             frameWidth: 20,
             frameHeight: 32,
+        })
+        this.load.spritesheet("playerPieces", eugene_single, {
+            frameWidth: 5,
+            frameHeight: 8
         })
         this.load.spritesheet("plasma", plasma, {
             frameWidth: 16,

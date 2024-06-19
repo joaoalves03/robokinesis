@@ -53,7 +53,12 @@ export class GameScene extends Phaser.Scene {
         })
         
         EventBus.on("playerDeath", () => {
-            this.registry.set("playerPosition", {x: this.player.getPlayer().x, y: this.player.getPlayer().y})
+            this.registry.set("playerPosition", {
+                x: this.player.getPlayer().x,
+                y: this.player.getPlayer().y,
+                frame: this.player.getPlayer().anims.currentFrame,
+                flip: this.player.getPlayer().flipX
+            })
             this.scene.switch("gameOverScene")
         })
         
@@ -80,6 +85,5 @@ export class GameScene extends Phaser.Scene {
                 else
                     enemy.update()
             }
-        //console.log(EnemyManager.getInstance().getEnemiesLeft())
     }
 }
