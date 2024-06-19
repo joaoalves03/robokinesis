@@ -24,7 +24,6 @@ const startGame = (_chipManager: ChipManager) => {
 const waveEnded = () => {
     cardsToSelect.value = chipManager!.getRandomChips()
     showCardSelect.value = true
-    hide.value = true
 }
 
 const startRound = () => {
