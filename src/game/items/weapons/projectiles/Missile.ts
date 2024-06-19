@@ -24,9 +24,12 @@ export class Missile extends Phaser.GameObjects.GameObjectFactory {
         )
 
         this.missile.setOnCollide(() => {
-            // TODO: Figure out why sometimes this crashes the game
             new Explosion(scene, this.missile.x, this.missile.y)
-            this.missile.destroy()
+            
+            this.scene.time.addEvent({
+                delay: 1,
+                callback: () => {this.missile.destroy()}
+            })
         })
     }
 }
