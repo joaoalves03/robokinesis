@@ -13,7 +13,18 @@ export class Server extends Phaser.GameObjects.Sprite {
             frameRate: 16,
             repeat: 0
         })
+
+        this.anims.create({
+            key: 'working',
+            frames: this.scene.anims.generateFrameNumbers('server', { start: 24, end: 27 }),
+            frameRate: 5,
+            repeat: -1
+        })
         
         this.play("spawn")
+        
+        this.on("animationcomplete", () => {
+            this.play("working")
+        })
     }
 }
