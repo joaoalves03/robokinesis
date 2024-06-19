@@ -1,6 +1,7 @@
 import eugene from '/assets/eugene.png'
 import enemies from '/assets/enemies.png'
 import rocketLauncher from '/assets/weapons/rocketlauncher.png'
+import shotgun from '/assets/weapons/ben.png'
 import plasma from '/assets/projectiles/plasma.png'
 import server from '/assets/objects/server.png'
 import paul from '/assets/enemies/paul.png'
@@ -27,7 +28,13 @@ export class LoadScene extends Phaser.Scene {
             frameWidth: 29,
             frameHeight: 28
         })
+        
         this.load.image("rocketLauncher", rocketLauncher)
+        this.load.spritesheet("shotgun", shotgun, {
+            frameWidth: 16,
+            frameHeight: 16
+        })
+        
         this.load.spritesheet("enemies", enemies, {frameWidth: 32, frameHeight: 32})
         
         this.load.on("complete", () => {

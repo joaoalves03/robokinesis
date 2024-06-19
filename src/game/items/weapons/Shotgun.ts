@@ -7,7 +7,7 @@ export class Shotgun extends BaseWeapon {
     private readonly reloadTime = 2000
 
     constructor(scene: Phaser.Scene, _parent: Phaser.Physics.Matter.Image) {
-        super(scene, _parent, "rocketLauncher", 2000)
+        super(scene, _parent, "shotgun", 2000)
 
         this.scene.input.on('pointerdown', (event: Phaser.Input.Pointer) => {
             if(event.rightButtonDown()) {
@@ -16,6 +16,22 @@ export class Shotgun extends BaseWeapon {
                 this.fire()
             }
         })
+
+        // this.weapon.anims.create({
+        //     key: 'idle',
+        //     frames: this.scene.anims.generateFrameNumbers('shotgun', { start: 0, end: 4 }),
+        //     frameRate: 5,
+        //     repeat: -1
+        // })
+        //
+        // this.weapon.anims.create({
+        //     key: 'fire',
+        //     frames: this.scene.anims.generateFrameNumbers('shotgun', { start: 5, end: 8 }),
+        //     frameRate: 5,
+        //     repeat: 0
+        // })
+        //
+        // this.weapon.play("idle")
     }
     
     // Fire a shot that pushes everyone away
