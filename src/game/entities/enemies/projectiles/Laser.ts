@@ -1,4 +1,5 @@
 import Phaser from "phaser"
+import {EventBus} from "@/game/EventBus"
 
 export class EnemyLaser extends Phaser.GameObjects.GameObjectFactory {
     private laser: Phaser.Physics.Matter.Image
@@ -8,7 +9,7 @@ export class EnemyLaser extends Phaser.GameObjects.GameObjectFactory {
         super(scene)
         
         this.laser = scene.matter.add.gameObject(
-            scene.add.circle(startX,startY,5,0xab0e0e),
+            scene.add.rectangle(startX,startY,8,3, 0xab0e0e),
             {
                 label: "enemyLaser"
             }
@@ -18,12 +19,17 @@ export class EnemyLaser extends Phaser.GameObjects.GameObjectFactory {
 
         const angle = Math.atan2(targetY - startY,targetX - startX)
 
+        this.laser.setRotation(angle)
         this.laser.setVelocity(
             this.speed * Math.cos(angle),
             this.speed * Math.sin(angle)
         )
 
-        this.laser.setOnCollide((_: any) => {
+        this.laser.setOnCollide((pair: Phaser.Types.Physics.Matter.MatterCollisionData) => {
+            if(pair.bodyA.label == "player" || pair.bodyB.label == "player"){
+                EventBus.emit("damagePlayer", 5)
+            }
+
             this.laser.destroy()
         })
     }

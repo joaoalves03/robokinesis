@@ -9,7 +9,6 @@ export class PaulEnemy extends BaseEnemy {
     ragingController: Phaser.Time.TimerEvent
     ragingEffect: Phaser.GameObjects.Arc
     ragingEffectTween: Phaser.Tweens.TweenChain
-    firingAngle: number = 0
     private referencePoint: Phaser.GameObjects.Rectangle
 
     constructor(world: Phaser.Physics.Matter.World, x: number, y: number, player: Player) {
@@ -31,7 +30,7 @@ export class PaulEnemy extends BaseEnemy {
 
         this.enemy.anims.create({
             key: 'rage',
-            frames: this.scene.anims.generateFrameNumbers('paul', {start: 25, end: 36}),
+            frames: this.scene.anims.generateFrameNumbers('paul', {start: 25, end: 35}),
             frameRate: 5,
             repeat: -1
         })
@@ -70,7 +69,7 @@ export class PaulEnemy extends BaseEnemy {
         })
 
         this.ragingController = this.scene.time.addEvent({
-            delay: 5000,
+            delay: 10000,
             callback: () => {
                 this.enemy.play("idleToRage")
 
@@ -127,8 +126,10 @@ export class PaulEnemy extends BaseEnemy {
     update() {
         super.update()
 
+        this.referencePoint.setPosition(this.enemy.x, this.enemy.y)
+        
         if (this.raging) {
-            this.referencePoint.rotation += 0.005 * this.scene.sys.game.loop.delta
+            this.referencePoint.rotation += 0.00285 * this.scene.sys.game.loop.delta
 
             // I love null checks
             if (this.ragingEffect) {

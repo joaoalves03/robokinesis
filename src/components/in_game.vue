@@ -37,6 +37,6 @@
 <template>
     <round_info :class="showInfo && !gameOver ? '' : '!hidden'" />
     <player_health :class="showInfo && !gameOver ? '' : '!hidden'" />
-    <inventory :class="gameOver ? '!hidden' : ''" />
+    <inventory />
     <game_over :class="gameOver ? '' : '!hidden'" />
 </template>
