@@ -12,15 +12,15 @@ export class ShotgunChip extends BaseChip {
     }
 
     onEnabled(player: Player): void {
-        if(this.weapon) return
+        if(!this.weapon)
+            this.weapon = new Shotgun(player.scene, player.getPlayer())
 
-        this.weapon = new Shotgun(player.scene, player.getPlayer())
-
+        this.weapon.enable()
         player.setWeapon(this.weapon)
     }
 
     onDisabled(player: Player): void {
+        this.weapon.disable()
         player.setWeapon(undefined)
-        this.weapon.weapon.destroy()
     }
 }
