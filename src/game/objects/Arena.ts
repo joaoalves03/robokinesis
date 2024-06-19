@@ -11,7 +11,11 @@ export class Arena {
         this.scene = scene
         this.maps = JSON.parse(localStorage.getItem("maps") ?? "[]")
         
-        this.scene.add.rectangle(600,600,1280,1280,0xffffff)
+        for (let i = 0; i < 16; i++){
+            for (let j = 0; j < 16; j++) {
+                this.scene.add.image(i * 80,j * 80,"floor_tile")
+            }
+        }
         
         this.newMap()
 

@@ -35,7 +35,7 @@ export class GameScene extends Phaser.Scene {
         const waveEnded = () => {
             this.cameras.main.stopFollow()
             this.cameras.main.setPosition(0, 0)
-            this.cameras.main.zoomTo(0.25, 500, 'Linear', true)
+            this.cameras.main.zoomTo(0.5, 500, 'Linear', true)
             this.cameras.main.pan(600, 600, 500, 'Linear', true)
         }
 

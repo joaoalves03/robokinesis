@@ -6,6 +6,7 @@ import shotgun from '/assets/weapons/ben.png'
 import plasma from '/assets/projectiles/plasma.png'
 import server from '/assets/objects/server.png'
 import paul from '/assets/enemies/paul.png'
+import floor_tile from '/assets/objects/floor_tile.png'
 import {EventBus} from "@/game/EventBus"
 
 export class LoadScene extends Phaser.Scene {
@@ -34,13 +35,13 @@ export class LoadScene extends Phaser.Scene {
             frameWidth: 29,
             frameHeight: 28
         })
-        
-        this.load.image("rocketLauncher", rocketLauncher)
         this.load.spritesheet("shotgun", shotgun, {
             frameWidth: 16,
             frameHeight: 16
         })
-        
+        this.load.image("rocketLauncher", rocketLauncher)
+        this.load.image("floor_tile", floor_tile)
+
         this.load.spritesheet("enemies", enemies, {frameWidth: 32, frameHeight: 32})
         
         
