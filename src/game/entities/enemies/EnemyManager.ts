@@ -40,6 +40,12 @@ export class EnemyManager {
             if(this.enemyCount == 0)
                 EventBus.emit("waveEnded")
         })
+        
+        EventBus.on("playerDeath", () => {
+            this.difficulty = 0
+            this.enemyCount = 0
+            this.enemies = []
+        })
     }
 
     newWave(tiles: (Phaser.GameObjects.Sprite | Vector2)[], player: Player) {

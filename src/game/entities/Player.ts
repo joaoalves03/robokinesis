@@ -110,6 +110,8 @@ export class Player extends Phaser.Physics.Matter.Factory {
     }
     
     takeDamage(n: number) {
+        if(this.health == 0) return
+        
         this.setHealth(Math.max(0, this.health - n))
         
         if(this.health == 0) this.die()

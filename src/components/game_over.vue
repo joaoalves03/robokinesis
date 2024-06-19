@@ -40,10 +40,18 @@ EventBus.on("enemyDeath", () => {
     killCount.value += 1
 })
 
+function playAgain() {
+    EventBus.emit("playAgain")
+}
+
+function goToMainMenu() {
+    EventBus.emit("goToMainMenu")
+}
+
 </script>
 
 <template>
-    <div class="absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center gap-2 bg-black bg-opacity-50 text-white">
+    <div class="absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center gap-2 text-white">
         <div class="text-7xl font-bold">Game over</div>
         <div class="score-table">
             <div>
@@ -61,7 +69,7 @@ EventBus.on("enemyDeath", () => {
         </div>
         <div class="flex flex-col justify-center">
             <div class="button">Play again</div>
-            <div class="button">Return to menu</div>
+            <div class="button" @click="goToMainMenu">Return to menu</div>
         </div>
     </div>
 </template>

@@ -16,6 +16,11 @@
     EventBus.on("newWave", () => {
         wave.value += 1
     })
+    
+    EventBus.on("showGameOverScreen", () => {
+        enemiesLeft.value = 0
+        wave.value = 0
+    })
 </script>
 
 <template>

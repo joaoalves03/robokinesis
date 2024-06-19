@@ -5,7 +5,7 @@ export class MainMenuScene extends Phaser.Scene {
         super("mainMenuScene")
         
         EventBus.on("play", () => {
-            this.scene.switch("gameScene")
+            this.scene.start("gameScene")
         })
     }
     

@@ -40,9 +40,9 @@ export class GameScene extends Phaser.Scene {
         })
 
         EventBus.on("startRound", () => {
-            if(this.enemyManager == undefined)
+            if(this.enemyManager == undefined) {
                 this.enemyManager = new EnemyManager(this.matter.scene)
-            
+            }
             this.arena.newMap()
             this.enemyManager!.newWave(this.arena.getTiles(), this.player)
             this.cameras.main.zoomTo(2, 250, 'Linear', true)
@@ -59,6 +59,12 @@ export class GameScene extends Phaser.Scene {
                 frame: this.player.getPlayer().anims.currentFrame,
                 flip: this.player.getPlayer().flipX
             })
+            this.enemyManager = undefined
+            
+            EventBus.removeListener("playerDeath")
+            EventBus.removeListener("enemyDeath")
+            EventBus.removeListener("startRound")
+            
             this.scene.switch("gameOverScene")
         })
         

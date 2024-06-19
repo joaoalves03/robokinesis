@@ -71,6 +71,10 @@ export class GameOverScene extends Phaser.Scene {
                 EventBus.emit("showGameOverScreen")
             }
         })
+        
+        EventBus.on("goToMainMenu", () => {
+            this.scene.start("mainMenuScene")
+        })
     }
 
     drawCircle(x: number, y: number) {
