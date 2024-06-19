@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type {ChipManager} from "@/game/ChipManager"
 import {EventBus} from "@/game/EventBus"
-import {ref, type Ref} from "vue"
+import {onBeforeUnmount, ref, type Ref} from "vue"
 import type {BaseChip} from "@/game/items/chips/BaseChip"
 import {ChipType} from "@/game/items/chips/ChipType"
 
@@ -12,23 +12,45 @@ const showCardSelect = ref(false)
 const cardsToSelect: Ref<BaseChip[]> = ref([])
 const selectedCard: Ref<BaseChip | undefined> = ref(undefined)
 
-EventBus.on("startGame", (_chipManager: ChipManager) => {
+const hide = ref(false)
+
+const startGame = (_chipManager: ChipManager) => {
     chipManager = _chipManager
     cardsToSelect.value = chipManager.getRandomChips(ChipType.WEAPON)
     showCardSelect.value = true
-})
+    hide.value = false
+}
 
-EventBus.on("waveEnded", () => {
+const waveEnded = () => {
     cardsToSelect.value = chipManager!.getRandomChips()
     showCardSelect.value = true
-})
+    hide.value = true
+}
 
-EventBus.on("startRound", () => {
+const startRound = () => {
     showCardSelect.value = false
-})
+}
 
-EventBus.on("playAgain", () => {
+const playAgain = () => {
     chips.value = []
+}
+
+const showGameOverScreen = () => {
+    hide.value = true
+}
+
+EventBus.on("startGame", startGame)
+EventBus.on("waveEnded", waveEnded)
+EventBus.on("startRound", startRound)
+EventBus.on("playAgain", playAgain)
+EventBus.on("showGameOverScreen", showGameOverScreen)
+
+onBeforeUnmount(() => {
+    EventBus.removeListener("startGame", startGame)
+    EventBus.removeListener("waveEnded", waveEnded)
+    EventBus.removeListener("startRound", startRound)
+    EventBus.removeListener("playAgain", playAgain)
+    EventBus.removeListener("showGameOverScreen", showGameOverScreen)
 })
 
 function selectCard(i: number) {
@@ -89,10 +111,10 @@ function skip() {
     </div>
 
     <div class="absolute flex w-full justify-center -bottom-8 lg:-bottom-2 xl:bottom-4 scale-50 lg:scale-75 xl:scale-100"
-         :class="selectedCard == undefined ? 'non-interactive' : ''">
-        
+         :class="[(selectedCard == undefined ? 'non-interactive' : ''),(hide ? '!hidden' : '')]">
+
         <img class="bottom-6 absolute z-0" src="/assets/chips/chip-container-top.png" alt=""/>
-        
+
         <div class="relative grid grid-cols-3 gap-3 z-10">
             <div
                 v-for="(item, index) in chips"
@@ -109,9 +131,9 @@ function skip() {
                 </div>
             </div>
         </div>
-        
+
         <img class="-bottom-24 absolute z-20" src="/assets/chips/chip-container-bottom.png" alt=""/>
-        
+
         <div class="absolute grid grid-cols-3 z-30 place-items-center -bottom-1 w-[480px]">
             <img src="/assets/chips/button-1.png" class="bg-yellow-300" alt=""/>
             <img src="/assets/chips/button-2.png" alt=""/>
