@@ -4,9 +4,16 @@ export class MainMenuScene extends Phaser.Scene {
     constructor() {
         super("mainMenuScene")
         
-        EventBus.on("play", () => {
+        const play = () => {
             this.scene.start("gameScene")
-        })
+        }
+        
+        const mapEditor = () => {
+            this.scene.start("mapEditorScene")
+        }
+        
+        EventBus.on("play", play)
+        EventBus.on("mapEditor", mapEditor)
     }
     
     create() {

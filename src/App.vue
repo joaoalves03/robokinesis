@@ -5,6 +5,7 @@ import In_game from "./components/in_game.vue"
 import Main_menu from "@/components/main_menu.vue"
 import {EventBus} from "@/game/EventBus"
 import LoadingScreen from './components/loading-screen.vue';
+import Map_editor from './components/map_editor.vue';
 
 const phaserRef = ref();
 
@@ -16,6 +17,10 @@ EventBus.on("play", () => {
 
 EventBus.on("goToMainMenu", () => {
     ui.value = Main_menu
+})
+
+EventBus.on("mapEditor", () => {
+    ui.value = Map_editor
 })
 
 </script>

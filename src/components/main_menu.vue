@@ -4,6 +4,10 @@
     function play(){
         EventBus.emit("play")
     }
+
+    function mapEditor(){
+        EventBus.emit("mapEditor")
+    }
 </script>
 
 <template>
@@ -11,6 +15,7 @@
         <div class="text-white text-7xl font-bold">RoboKinesis</div>
         <div class="flex flex-col justify-center">
             <div class="button" @click="play">Play</div>
+            <div class="button" @click="mapEditor">Map editor</div>
         </div>
     </div>
 </template>

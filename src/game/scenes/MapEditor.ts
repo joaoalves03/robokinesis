@@ -1,3 +1,5 @@
+import {EventBus} from "@/game/EventBus"
+
 export class MapEditorScene extends Phaser.Scene {
     private tiles: Phaser.GameObjects.Rectangle[]
     private tile_values: number[]
@@ -14,14 +16,7 @@ export class MapEditorScene extends Phaser.Scene {
         const startPosition = (screenHeight / 2) - tileSize
 
         this.input.mouse!.disableContextMenu()
-
-        // TODO: REPLACE WITH ACTUAL SAVING BUTTON
-        this.input.keyboard!.on('keydown-S', () => {
-            localStorage.setItem("maps", JSON.stringify([
-                this.tile_values.join("")
-            ]))
-        }, this);
-
+        
         for(let i = 0; i<16; i++) {
             for(let j = 0; j<16; j++) {
                 this.tiles.push(this.add.rectangle(
@@ -57,5 +52,21 @@ export class MapEditorScene extends Phaser.Scene {
                 }
             })
         })
+        
+        const saveMap = (save: boolean) => {
+            EventBus.removeListener("saveMap", saveMap)
+            if(save) {
+                if(this.tile_values.find(x => x == 1)) {
+                    const maps = JSON.parse(localStorage.getItem("maps") ?? "[]")
+                    maps.push(this.tile_values.join(""))
+                    localStorage.setItem("maps", JSON.stringify(maps))
+                }
+            }
+
+            EventBus.emit("goToMainMenu")
+            this.scene.start("mainMenuScene")
+        }
+        
+        EventBus.on("saveMap", saveMap)
     }
 }
