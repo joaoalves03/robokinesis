@@ -14,6 +14,7 @@ import mark from '/assets/weapons/mark.png'
 import markII from '/assets/weapons/markii.png'
 import floor_tile from '/assets/objects/floor_tile.png'
 import ground_spots from '/assets/objects/ground_spots.png'
+import explosions from '/assets/objects/explosions.png'
 import {EventBus} from "@/game/EventBus"
 
 export class LoadScene extends Phaser.Scene {
@@ -77,6 +78,10 @@ export class LoadScene extends Phaser.Scene {
         this.load.spritesheet("hectorInflate", hectorInflate, {
             frameWidth: 45,
             frameHeight: 60
+        })
+        this.load.spritesheet("explosions", explosions, {
+            frameWidth: 32,
+            frameHeight: 32
         })
         
         // 45 60

@@ -1,49 +1,63 @@
 import {EventBus} from "@/game/EventBus"
 
 export class Explosion extends Phaser.GameObjects.GameObjectFactory {
-    private trigger
-    private visuals: Phaser.GameObjects.Arc
-    
-    constructor(scene: Phaser.Scene, x: number, y: number, radius: number = 40) {
+    private visuals: Phaser.GameObjects.Sprite
+
+    constructor(scene: Phaser.Scene, x: number, y: number, radius: number = 40, damage: boolean = true) {
         super(scene)
 
-        this.trigger = this.scene.matter.add.circle(
-            x,
-            y,
-            radius,
-            {
-                isStatic: true,
-                label: "explosion",
-                onCollideCallback: (pair: any) => {
-                    if (pair.bodyA.label == "player" || pair.bodyB.label == "player") {
-                        EventBus.emit("damagePlayer", 10)
+        if(damage) {
+            const trigger = this.scene.matter.add.circle(
+                x,
+                y,
+                radius,
+                {
+                    isStatic: true,
+                    label: "explosion",
+                    onCollideCallback: (pair: any) => {
+                        if (pair.bodyA.label == "player" || pair.bodyB.label == "player") {
+                            EventBus.emit("damagePlayer", 10)
+                        }
                     }
                 }
-            }
-        )
+            )
 
-        scene.time.addEvent({
-            delay: 10,
-            callback: () => {
-                this.scene.matter.world.remove(this.trigger)
-            }
-        })
+            scene.time.addEvent({
+                delay: 10,
+                callback: () => {
+                    this.scene.matter.world.remove(trigger)
+                }
+            })
+        }
 
-        this.visuals = this.scene.add.circle(
+        this.visuals = this.scene.add.sprite(
             x,
             y,
-            radius,
-            0xff0000
-        ).setDepth(6)
+            "explosions"
+        ).setDepth(6).setScale(radius / 24)
 
-        this.scene.tweens.add({
-            targets: this.visuals,
-            alpha: 0,
-            ease: 'Sine.easeInOut',
-            duration: 500,
-            onComplete: () => {
-                this.visuals.destroy()
-            }
+        this.visuals.anims.create({
+            key: 'explosion1',
+            frames: this.scene.anims.generateFrameNumbers('explosions', {start: 0, end: 8}),
+            frameRate: 24,
+            repeat: 0
         })
+
+        this.visuals.anims.create({
+            key: 'explosion2',
+            frames: this.scene.anims.generateFrameNumbers('explosions', {start: 9, end: 17}),
+            frameRate: 24,
+            repeat: 0
+        })
+
+        this.visuals.on("animationcomplete", () => {
+            this.visuals.destroy()
+        })
+        
+        this.visuals.play(
+            Math.random() < 0.5
+                ? "explosion1"
+                : "explosion2"
+        )
     }
 }

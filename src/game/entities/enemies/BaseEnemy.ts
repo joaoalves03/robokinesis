@@ -1,6 +1,7 @@
 import Phaser from "phaser"
 import type {Player} from "@/game/entities/Player"
 import {EventBus} from "@/game/EventBus"
+import {Explosion} from "@/game/items/weapons/misc/Explosion"
 
 export abstract class BaseEnemy extends Phaser.Physics.Matter.Factory {
     private health: number
@@ -94,6 +95,7 @@ export abstract class BaseEnemy extends Phaser.Physics.Matter.Factory {
 
     die() {
         // TODO: Add death effects
+        new Explosion(this.scene, this.enemy.x, this.enemy.y, 20, false)
         this.enemy.destroy()
         this.healthBar.clear()
         this.healthBar.destroy()
