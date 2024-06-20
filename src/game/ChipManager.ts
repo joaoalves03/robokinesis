@@ -4,7 +4,7 @@ import {PistolChip} from "@/game/items/chips/PistolChip"
 import type {Player} from "@/game/entities/Player"
 import {AssaultRifleChip} from "@/game/items/chips/AssaultRifleChip"
 import {PlasmaGunChip} from "@/game/items/chips/PlasmaGunChip"
-import type {ChipType} from "@/game/items/chips/ChipType"
+import {ChipType} from "@/game/items/chips/ChipType"
 import {ShotgunChip} from "@/game/items/chips/ShotgunChip"
 import {GrenadeChip} from "@/game/items/chips/GrenadeChip"
 import {EventBus} from "@/game/EventBus"
@@ -84,6 +84,16 @@ export class ChipManager {
         } else if (this.active_chips[index] == undefined) {
             EventBus.emit("selectChip", this.selected_chip)
         } else {
+            if(this.active_chips[index].type == ChipType.ITEM || this.active_chips[index].type == ChipType.EFFECT) {
+                this.active_chips[index].onEnabled(this.player)
+                if(this.active_chips[index].usesLeft <= 0) {
+                    this.active_chips.splice(index, 1)
+                }
+                
+                EventBus.emit("selectChip", this.selected_chip)
+                return
+            }
+            
             this.active_chips[this.selected_chip].onDisabled(this.player)
             this.active_chips[index].onEnabled(this.player)
             this.selected_chip = index

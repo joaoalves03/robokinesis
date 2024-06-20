@@ -7,17 +7,19 @@ import speed from '/assets/chips/speed.png'
 export class SpeedChip extends BaseChip {
     
     constructor() {
-        super(ChipType.EFFECT, -1, "Example Effect", speed)
+        super(ChipType.EFFECT, 3, "Example Effect", speed)
     }
 
     onEnabled(player: Player): void {
-        player.velocityMultiplier(2.5)
+        player.velocityMultiplier(1.5)
         player.scene.time.addEvent({
             delay: 2000,
             callback: () => {
                 player.resetVelocity()
             }
         })
+        
+        this.usesLeft -= 1
     }
 
     onDisabled(player: Player): void {

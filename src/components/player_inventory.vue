@@ -14,7 +14,7 @@ let chipManager: ChipManager | undefined
 const showCardSelect = ref(false)
 const cardsToSelect: Ref<BaseChip[]> = ref([])
 const selectedCard: Ref<BaseChip | undefined> = ref(undefined)
-const chip = ref(0)
+const chip: Ref<number | undefined> = ref(0)
 
 const hide = ref(false)
 
@@ -43,6 +43,7 @@ const showGameOverScreen = () => {
 }
 
 const selectChip = (n: number) => {
+    chip.value = undefined
     chip.value = n
 }
 
