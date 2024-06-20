@@ -1,14 +1,18 @@
 import {EventBus} from "@/game/EventBus"
 
 export class MainMenuScene extends Phaser.Scene {
+    private music: any
+    
     constructor() {
         super("mainMenuScene")
         
         const play = () => {
+            this.music.stop()
             this.scene.start("gameScene")
         }
         
         const mapEditor = () => {
+            this.music.stop()
             this.scene.start("mapEditorScene")
         }
         
@@ -17,6 +21,11 @@ export class MainMenuScene extends Phaser.Scene {
     }
     
     create() {
+        this.music = this.sound.add("ambience")
+        this.music.setVolume(0.5)
+        this.music.setLoop(true)
+        this.music.play()
+        
         const player = this.add.sprite(
             160,
             360,

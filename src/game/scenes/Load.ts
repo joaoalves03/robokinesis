@@ -28,6 +28,7 @@ import sfx_frog from '/assets/sfx/frog.wav'
 import sfx_eugene_death from '/assets/sfx/eugene-death.wav'
 
 import music from '/assets/music.mp3'
+import ambience from '/assets/ambience.wav'
 
 import {EventBus} from "@/game/EventBus"
 
@@ -113,6 +114,7 @@ export class LoadScene extends Phaser.Scene {
         this.load.audio("eugene_death", sfx_eugene_death)
         
         this.load.audio("music", music)
+        this.load.audio("ambience", ambience)
         
         this.load.on("progress", (progress: number) => {
             EventBus.emit("loadProgress", progress)
