@@ -25,6 +25,7 @@ import sfx_rocketlauncher from '/assets/sfx/rocket-launcher.wav'
 import sfx_explosion from '/assets/sfx/explosion.mp3'
 import sfx_cannon from '/assets/sfx/cannon.mp3'
 import sfx_frog from '/assets/sfx/frog.wav'
+import sfx_eugene_death from '/assets/sfx/eugene-death.wav'
 
 import music from '/assets/music.mp3'
 
@@ -109,6 +110,7 @@ export class LoadScene extends Phaser.Scene {
         this.load.audio("explosion", sfx_explosion)
         this.load.audio("cannon", sfx_cannon)
         this.load.audio("frog", sfx_frog)
+        this.load.audio("eugene_death", sfx_eugene_death)
         
         this.load.audio("music", music)
         

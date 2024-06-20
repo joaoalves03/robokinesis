@@ -23,6 +23,8 @@ export class GameOverScene extends Phaser.Scene {
         this.cameras.main.setZoom(2, 2)
         this.cameras.main.startFollow(player)
 
+        this.sound.play("eugene_death", {volume: 0.05})
+        
         this.time.addEvent({
             delay: 1000,
             callback: () => {
@@ -31,6 +33,8 @@ export class GameOverScene extends Phaser.Scene {
                 this.explosionEffect = this.add.graphics({ lineStyle: { width: 2, color: 0xffffff } })
 
                 this.radius = 0
+
+                this.sound.play("explosion", {volume: 0.05})
                 
                 this.tweens.add({
                     targets: this,
