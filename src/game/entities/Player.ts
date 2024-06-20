@@ -8,6 +8,7 @@ export class Player extends Phaser.Physics.Matter.Factory {
     private weapon?: BaseWeapon
     private health: number = 100
     private lookingUp: boolean = false
+    private velocity: number = 2
 
     constructor(world: Phaser.Physics.Matter.World, x: number, y: number) {
         super(world)
@@ -67,17 +68,17 @@ export class Player extends Phaser.Physics.Matter.Factory {
         
         // Player movement
         if (this.keyboard!.addKey('A').isDown) {
-            this.player.setVelocityX(-2);
+            this.player.setVelocityX(-this.velocity);
         } else if (this.keyboard!.addKey('D').isDown) {
-            this.player.setVelocityX(2);
+            this.player.setVelocityX(this.velocity);
         } else {
             this.player.setVelocityX(0)
         }
 
         if (this.keyboard!.addKey('W').isDown) {
-            this.player.setVelocityY(-2);
+            this.player.setVelocityY(-this.velocity);
         } else if (this.keyboard!.addKey('S').isDown) {
-            this.player.setVelocityY(2);
+            this.player.setVelocityY(this.velocity);
         } else {
             this.player.setVelocityY(0)
         }
@@ -99,6 +100,14 @@ export class Player extends Phaser.Physics.Matter.Factory {
         else if(this.player.x > 1300) this.player.setPosition(1224)
         if(this.player.y < -200) this.player.setPosition(this.player.x, -24)
         else if(this.player.y > 1300) this.player.setPosition(1224)
+    }
+    
+    velocityMultiplier(multiplier: number) {
+        this.velocity *= multiplier
+    }
+    
+    resetVelocity(){
+        this.velocity = 2
     }
 
     getPlayer() {

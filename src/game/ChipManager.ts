@@ -8,6 +8,7 @@ import type {ChipType} from "@/game/items/chips/ChipType"
 import {ShotgunChip} from "@/game/items/chips/ShotgunChip"
 import {GrenadeChip} from "@/game/items/chips/GrenadeChip"
 import {EventBus} from "@/game/EventBus"
+import {SpeedChip} from "@/game/items/chips/SpeedChip";
 
 export class ChipManager {
     private readonly player: Player
@@ -23,9 +24,7 @@ export class ChipManager {
             new AssaultRifleChip(),
             new PlasmaGunChip(),
             new ShotgunChip(),
-            new ExampleItemChip(),
-            new ExampleItemChip2(),
-            new ExampleEffectChip(),
+            new SpeedChip(),
             new GrenadeChip()
         ]
     }
