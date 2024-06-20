@@ -14,7 +14,7 @@ export class Background extends Phaser.GameObjects.GameObjectFactory {
                     this.scene.add.sprite(
                         -640 + i * 80,-640 + j * 80,
                         "ground_spots",
-                        Phaser.Math.Between(0, texture.frameTotal)
+                        Phaser.Math.Between(0, texture.frameTotal - 2)
                     )
                         .setScale(0.5)
                         .setDepth(1)

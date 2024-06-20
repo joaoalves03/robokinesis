@@ -21,7 +21,7 @@ export class Arena {
                     this.scene.add.sprite(
                         i * 80,j * 80,
                         "ground_spots", 
-                        Phaser.Math.Between(0, texture.frameTotal)
+                        Phaser.Math.Between(0, texture.frameTotal - 2)
                     ).setDepth(3)
                 }
             }
