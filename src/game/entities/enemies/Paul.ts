@@ -127,6 +127,7 @@ export class PaulEnemy extends BaseEnemy {
         super.update()
 
         this.referencePoint.setPosition(this.enemy.x, this.enemy.y)
+        this.enemy.setAngularVelocity(0)
         
         if (this.raging) {
             this.referencePoint.rotation += 0.00285 * this.scene.sys.game.loop.delta
