@@ -3,7 +3,6 @@ import {RocketLauncherChip} from "@/game/items/chips/RocketLauncherChip"
 import {PistolChip} from "@/game/items/chips/PistolChip"
 import type {Player} from "@/game/entities/Player"
 import {AssaultRifleChip} from "@/game/items/chips/AssaultRifleChip"
-import {PlasmaGunChip} from "@/game/items/chips/PlasmaGunChip"
 import {ChipType} from "@/game/items/chips/ChipType"
 import {ShotgunChip} from "@/game/items/chips/ShotgunChip"
 import {GrenadeChip} from "@/game/items/chips/GrenadeChip"
@@ -22,7 +21,6 @@ export class ChipManager {
             new RocketLauncherChip(),
             new PistolChip(),
             new AssaultRifleChip(),
-            new PlasmaGunChip(),
             new ShotgunChip(),
             new SpeedChip(),
             new GrenadeChip()

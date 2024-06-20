@@ -14,6 +14,7 @@ import markII from '/assets/weapons/markii.png'
 import floor_tile from '/assets/objects/floor_tile.png'
 import ground_spots from '/assets/objects/ground_spots.png'
 import explosions from '/assets/objects/explosions.png'
+import grenade from '/assets/objects/grenade.png'
 
 import sfx_walk_heavy from '/assets/sfx/walk_heavy.wav'
 import sfx_goat from '/assets/sfx/robot_goat.wav'
@@ -100,6 +101,7 @@ export class LoadScene extends Phaser.Scene {
         })
         
         this.load.image("floor_tile", floor_tile)
+        this.load.image("grenade", grenade)
         
         this.load.audio("walk_heavy", sfx_walk_heavy)
         this.load.audio("goat", sfx_goat)

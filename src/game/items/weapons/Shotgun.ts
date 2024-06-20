@@ -21,6 +21,22 @@ export class Shotgun extends BaseWeapon {
             }
         })
 
+        this.weapon.anims.create({
+            key: 'idle',
+            frames: this.scene.anims.generateFrameNumbers('shotgun', { start: 0, end: 3 }),
+            frameRate: 5,
+            repeat: -1
+        })
+
+        this.weapon.anims.create({
+            key: 'fire',
+            frames: this.scene.anims.generateFrameNumbers('shotgun', { start: 4, end: 7 }),
+            frameRate: 12,
+            repeat: 0
+        })
+
+        this.weapon.play("idle")
+
         // this.weapon.anims.create({
         //     key: 'idle',
         //     frames: this.scene.anims.generateFrameNumbers('shotgun', { start: 0, end: 4 }),
@@ -59,6 +75,11 @@ export class Shotgun extends BaseWeapon {
         if (this.disabled || this.cartridges == 0) return
 
         this.sound.play()
+        this.weapon.play("fire", true)
+
+        this.weapon.on("animationcomplete", () => {
+            this.weapon.play("idle", true)
+        })
         
         const target = {
             x: this.scene.input.activePointer.x + this.scene.cameras.main.scrollX,

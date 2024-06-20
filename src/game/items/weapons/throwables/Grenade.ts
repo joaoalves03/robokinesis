@@ -8,12 +8,9 @@ export class Grenade extends Phaser.GameObjects.GameObjectFactory {
     constructor(scene: Phaser.Scene, startX: number, startY: number, targetX: number, targetY: number) {
         super(scene)
 
-        this.grenade = scene.matter.add.gameObject(
-            scene.add.circle(startX, startY, 5, 0x44ff44),
-            {
-                label: "grenade"
-            }
-        ) as Phaser.Physics.Matter.Image
+        this.grenade = scene.matter.add.image(startX, startY, "grenade", 0, {
+            label: "grenade",
+        })
 
         const angle = Math.atan2(targetY - startY, targetX - startX)
         this.grenade.setRotation(angle)
