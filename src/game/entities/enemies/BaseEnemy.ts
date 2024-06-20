@@ -15,6 +15,7 @@ export abstract class BaseEnemy extends Phaser.Physics.Matter.Factory {
         this.enemy = this.scene.matter.add.sprite(x, y, texture, 0)
         this.health = this.maxHealth = health
         this.enemy.setAlpha(0)
+        this.enemy.setDepth(5)
         
         // Spawning Effect (white circle)
         const spawnEffect = this.scene.add.circle(this.enemy.x, this.enemy.y, 0, 0xffe600)
@@ -63,7 +64,7 @@ export abstract class BaseEnemy extends Phaser.Physics.Matter.Factory {
             }
         })
 
-        this.healthBar = this.scene.add.graphics()
+        this.healthBar = this.scene.add.graphics().setDepth(6)
 
         this.player = player
     }

@@ -18,7 +18,7 @@ export class Plasma extends Phaser.GameObjects.GameObjectFactory {
                 label: "plasma"
             }
         )
-        this.plasma.setFrictionAir(0)
+        this.plasma.setFrictionAir(0).setDepth(6)
         this.plasma.anims.create({
             key: 'plasma_effect',
             frames: this.scene.anims.generateFrameNumbers('plasma', { start: 0, end: 4 }),

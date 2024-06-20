@@ -6,6 +6,7 @@ export class Server extends Phaser.GameObjects.Sprite {
         
         this.scene.add.existing(this)
         this.setScale(80/68)
+        this.setDepth(4)
         
         this.anims.create({
             key: 'spawn',

@@ -14,7 +14,7 @@ export class Missile extends Phaser.GameObjects.GameObjectFactory {
                 label: "missile"
             }
         ) as Phaser.Physics.Matter.Image
-        this.missile.setFrictionAir(0)
+        this.missile.setFrictionAir(0).setDepth(6)
 
         const angle = Math.atan2(targetY - startY,targetX - startX)
 

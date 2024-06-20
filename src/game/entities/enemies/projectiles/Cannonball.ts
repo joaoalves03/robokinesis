@@ -14,7 +14,7 @@ export class EnemyCannonball extends Phaser.GameObjects.GameObjectFactory {
                 label: "enemyCannonball"
             }
         ) as Phaser.Physics.Matter.Image
-        this.cannonball.setFrictionAir(0.004)
+        this.cannonball.setFrictionAir(0.004).setDepth(6)
 
         const angle = Math.atan2(targetY - startY,targetX - startX)
         

@@ -12,7 +12,7 @@ export class KnockbackBomb extends Phaser.GameObjects.GameObjectFactory {
                 label: "knockbackBomb"
             }
         ) as Phaser.Physics.Matter.Image
-        this.bomb.setFrictionAir(0)
+        this.bomb.setFrictionAir(0).setDepth(6)
 
         const angle = Math.atan2(targetY - startY, targetX - startX)
 

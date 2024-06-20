@@ -34,7 +34,7 @@ export class Explosion extends Phaser.GameObjects.GameObjectFactory {
             y,
             radius,
             0xff0000
-        )
+        ).setDepth(6)
 
         this.scene.tweens.add({
             targets: this.visuals,

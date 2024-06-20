@@ -10,10 +10,20 @@ export class Arena {
     constructor(scene: Phaser.Scene, x: number, y: number) {
         this.scene = scene
         this.maps = JSON.parse(localStorage.getItem("maps") ?? "[]")
+        const texture = this.scene.textures.get("ground_spots")
         
         for (let i = 0; i < 16; i++){
             for (let j = 0; j < 16; j++) {
                 this.scene.add.image(i * 80,j * 80,"floor_tile")
+                    .setDepth(2)
+                
+                if(Math.random() < 0.2) {
+                    this.scene.add.sprite(
+                        i * 80,j * 80,
+                        "ground_spots", 
+                        Phaser.Math.Between(0, texture.frameTotal)
+                    ).setDepth(3)
+                }
             }
         }
         

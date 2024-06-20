@@ -13,7 +13,7 @@ export class Bullet extends Phaser.GameObjects.GameObjectFactory {
                 label: "bullet"
             }
         ) as Phaser.Physics.Matter.Image
-        this.bullet.setFrictionAir(0)
+        this.bullet.setFrictionAir(0).setDepth(6)
 
         const angle = Math.atan2(targetY - startY, targetX - startX)
 

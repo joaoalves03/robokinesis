@@ -17,6 +17,7 @@ export class Player extends Phaser.Physics.Matter.Factory {
         })
         //this.weapon = new RocketLauncher(this.scene, this.player)
         this.player.setFixedRotation()
+        this.player.setDepth(5)
         this.keyboard = this.scene.input.keyboard;
         
         this.createAnimations()

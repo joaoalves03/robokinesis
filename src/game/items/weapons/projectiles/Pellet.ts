@@ -12,7 +12,7 @@ export class Pellet extends Phaser.GameObjects.GameObjectFactory {
                 label: "pellet"
             }
         ) as Phaser.Physics.Matter.Image
-        this.pellet.setFrictionAir(0)
+        this.pellet.setFrictionAir(0).setDepth(6)
 
         const angle = Math.atan2(targetY - startY, targetX - startX) + Phaser.Math.FloatBetween(-0.25,0.25)
         

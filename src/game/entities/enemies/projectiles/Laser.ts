@@ -16,6 +16,7 @@ export class EnemyLaser extends Phaser.GameObjects.GameObjectFactory {
         ) as Phaser.Physics.Matter.Image
         this.laser.setFrictionAir(0)
         this.laser.setSensor(true)
+        this.laser.setDepth(6)
 
         const angle = Math.atan2(targetY - startY,targetX - startX)
 
