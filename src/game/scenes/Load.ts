@@ -8,6 +8,8 @@ import paul from '/assets/enemies/paul.png'
 import fred from '/assets/enemies/fred.png'
 import pogo from '/assets/enemies/pogo.png'
 import may from '/assets/weapons/may.png'
+import mark from '/assets/weapons/mark.png'
+import markII from '/assets/weapons/markii.png'
 import floor_tile from '/assets/objects/floor_tile.png'
 import ground_spots from '/assets/objects/ground_spots.png'
 import {EventBus} from "@/game/EventBus"
@@ -55,6 +57,14 @@ export class LoadScene extends Phaser.Scene {
             frameHeight: 28
         })
         this.load.spritesheet("may", may, {
+            frameWidth: 16,
+            frameHeight: 16
+        })
+        this.load.spritesheet("mark", mark, {
+            frameWidth: 16,
+            frameHeight: 16
+        })
+        this.load.spritesheet("markII", markII, {
             frameWidth: 16,
             frameHeight: 16
         })
