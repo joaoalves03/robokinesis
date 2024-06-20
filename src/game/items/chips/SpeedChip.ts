@@ -7,7 +7,7 @@ import speed from '/assets/chips/speed.png'
 export class SpeedChip extends BaseChip {
     
     constructor() {
-        super(ChipType.EFFECT, 3, "Example Effect", speed)
+        super(ChipType.EFFECT, 3, "Speed boost", speed)
     }
 
     onEnabled(player: Player): void {
