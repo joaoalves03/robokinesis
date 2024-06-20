@@ -82,7 +82,7 @@ export class Arena {
                         label: "wall"
                     })
                 } else {
-                    this.arenaTiles.push(new Vector2(i*80,j*80))
+                    this.arenaTiles.push(new Vector2((i-1)*80,(j-1)*80))
                 }
                 
             }
