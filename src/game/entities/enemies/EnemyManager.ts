@@ -1,4 +1,4 @@
-import {Zombie} from "../../entities/enemies/Zombie"
+import {Pogo} from "./Pogo"
 import {EventBus} from "@/game/EventBus"
 import type {Player} from "@/game/entities/Player"
 import type {BaseEnemy} from "@/game/entities/enemies/BaseEnemy"
@@ -13,11 +13,15 @@ type Constructor<T = {}> = new (...args: any[]) => T
 export class EnemyManager {
     private difficulty: number = 0
     private scene: Phaser.Scene
-    private enemyCount: number = 0
     private enemies: BaseEnemy[] = []
+    private enemyCount: number = 0
+    
+    private probabilities = [0.8, 0.15, 0.05]
+    private enemyIncreaseFactor = 1.1
+    private probabilityIncreaseFactor = 1.05
 
     private static lowTierEnemies: Constructor<BaseEnemy>[] = [
-        Zombie
+        Pogo
     ]
 
     private static mediumTierEnemies: Constructor<BaseEnemy>[] = [
@@ -52,16 +56,41 @@ export class EnemyManager {
         this.difficulty++
         const validTiles = tiles.filter(x => x instanceof Vector2)
         
-        for(let i = 0; i<this.difficulty; i++) {
+        const nEnemies = 4 * (Math.pow(this.enemyIncreaseFactor, this.difficulty))
+
+        let lowProb = this.probabilities[0] * (this.probabilityIncreaseFactor ** this.difficulty)
+        let mediumProb = this.probabilities[1] * (this.probabilityIncreaseFactor ** this.difficulty)
+        const highProb = this.probabilities[2] * (this.probabilityIncreaseFactor ** this.difficulty)
+
+        const totalProb = lowProb + mediumProb + highProb
+        lowProb /= totalProb
+        mediumProb /= totalProb
+        
+        for(let i = 0; i<nEnemies; i++) {
             const selectedTile = validTiles[Math.floor(Math.random() * validTiles.length)]
             
+            const rand = Math.random()
+            
             this.enemies.push(
-                new EnemyManager.mediumTierEnemies[Math.floor(Math.random() * EnemyManager.mediumTierEnemies.length)](
-                    this.scene.matter.world,
-                    selectedTile.x,
-                    selectedTile.y,
-                    player
-                )
+                rand < lowProb
+                    ? new EnemyManager.lowTierEnemies[Math.floor(Math.random() * EnemyManager.lowTierEnemies.length)](
+                        this.scene.matter.world,
+                        selectedTile.x,
+                        selectedTile.y,
+                        player
+                    ) 
+                    : rand < lowProb + mediumProb
+                        ? new EnemyManager.mediumTierEnemies[Math.floor(Math.random() * EnemyManager.mediumTierEnemies.length)](
+                            this.scene.matter.world,
+                            selectedTile.x,
+                            selectedTile.y,
+                            player
+                        ) : new EnemyManager.highTierEnemies[Math.floor(Math.random() * EnemyManager.highTierEnemies.length)](
+                            this.scene.matter.world,
+                            selectedTile.x,
+                            selectedTile.y,
+                            player
+                        )
             )
 
             this.enemyCount++
