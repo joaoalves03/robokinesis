@@ -1,13 +1,13 @@
 import eugene from '/assets/eugene.png'
 import eugene_single from '/assets/eugene_single.png'
 import enemies from '/assets/enemies.png'
-import rocketLauncher from '/assets/weapons/rocketlauncher.png'
 import shotgun from '/assets/weapons/ben.png'
 import plasma from '/assets/projectiles/plasma.png'
 import server from '/assets/objects/server.png'
 import paul from '/assets/enemies/paul.png'
 import fred from '/assets/enemies/fred.png'
 import pogo from '/assets/enemies/pogo.png'
+import may from '/assets/weapons/may.png'
 import floor_tile from '/assets/objects/floor_tile.png'
 import ground_spots from '/assets/objects/ground_spots.png'
 import {EventBus} from "@/game/EventBus"
@@ -54,7 +54,10 @@ export class LoadScene extends Phaser.Scene {
             frameWidth: 28,
             frameHeight: 28
         })
-        this.load.image("rocketLauncher", rocketLauncher)
+        this.load.spritesheet("may", may, {
+            frameWidth: 16,
+            frameHeight: 16
+        })
         this.load.image("floor_tile", floor_tile)
 
         this.load.spritesheet("enemies", enemies, {frameWidth: 32, frameHeight: 32})

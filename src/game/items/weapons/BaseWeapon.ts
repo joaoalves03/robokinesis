@@ -1,7 +1,7 @@
 import Phaser from "phaser";
 
 export abstract class BaseWeapon extends Phaser.GameObjects.GameObjectFactory {
-    weapon: Phaser.GameObjects.Image
+    weapon: Phaser.GameObjects.Sprite
     parent: Phaser.Physics.Matter.Image
     mouseAngle: number = 0
     fireRate: number
@@ -18,7 +18,7 @@ export abstract class BaseWeapon extends Phaser.GameObjects.GameObjectFactory {
             firingDelay: number
     ) {
         super(scene)
-        this.weapon = this.scene.add.image(_parent.x, _parent.y, texture)
+        this.weapon = this.scene.add.sprite(_parent.x, _parent.y, texture)
         this.parent = _parent
         this.fireRate = firingDelay
         this.weapon.setDepth(6)
