@@ -9,10 +9,14 @@ export class Player extends Phaser.Physics.Matter.Factory {
     private health: number = 100
     private lookingUp: boolean = false
     private velocity: number = 2
+    // private walk
 
     constructor(world: Phaser.Physics.Matter.World, x: number, y: number) {
         super(world)
 
+        /*this.walk = this.scene.sound.add("walk")
+        this.walk.setVolume(0.01)*/
+        
         this.player = this.scene.matter.add.sprite(x, y, 'player', 0, {
             label: "player"
         })
@@ -89,11 +93,13 @@ export class Player extends Phaser.Physics.Matter.Factory {
             } else {
                 this.player.play("idleDown", true)
             }
+            // this.walk.stop()
         } else {
             this.player.play(
                 this.lookingUp ? "walkingUp" : "walkingDown",
                 true
             )
+            // if(!this.walk.isPlaying) this.walk.play()
         }
         
         if(this.player.x < -200) this.player.setPosition(-30)

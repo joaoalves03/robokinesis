@@ -26,6 +26,8 @@ export class EnemyCannonball extends Phaser.GameObjects.GameObjectFactory {
         //this.cannonball.setBounce(1)
         this.cannonball.setDensity(10)
         
+        this.scene.sound.play("cannon", {volume: 0.02})
+        
         this.scene.time.addEvent({
             delay: 4000,
             callback: () => {

@@ -5,10 +5,14 @@ import {Pellet} from "@/game/items/weapons/projectiles/Pellet"
 export class Shotgun extends BaseWeapon {
     private cartridges: number = 2
     private readonly reloadTime = 2000
+    private sound
 
     constructor(scene: Phaser.Scene, _parent: Phaser.Physics.Matter.Image) {
         super(scene, _parent, "shotgun", 2000)
 
+        this.sound = this.scene.sound.add("shotgun")
+        this.sound.setVolume(0.04)
+        
         this.scene.input.on('pointerdown', (event: Phaser.Input.Pointer) => {
             if(event.rightButtonDown()) {
                 this.altFire()
@@ -54,12 +58,14 @@ export class Shotgun extends BaseWeapon {
     fire(): void {
         if (this.disabled || this.cartridges == 0) return
 
+        this.sound.play()
+        
         const target = {
             x: this.scene.input.activePointer.x + this.scene.cameras.main.scrollX,
             y: this.scene.input.activePointer.y + this.scene.cameras.main.scrollY
         }
 
-        for (let i = 0; i < 8; i++) {
+        for (let i = 0; i < 6; i++) {
             new Pellet(
                 this.scene,
                 Phaser.Math.Between(this.weapon.x - 8, this.weapon.x + 8),

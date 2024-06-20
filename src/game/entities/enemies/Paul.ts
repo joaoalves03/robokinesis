@@ -14,6 +14,9 @@ export class PaulEnemy extends BaseEnemy {
     constructor(world: Phaser.Physics.Matter.World, x: number, y: number, player: Player) {
         super(world, x, y, "paul", 200, player)
 
+        const sound = this.scene.sound.add("gorilla")
+        sound.setVolume(0.02)        
+        
         this.enemy.anims.create({
             key: 'idle',
             frames: this.scene.anims.generateFrameNumbers('paul', {start: 0, end: 3}),
@@ -72,6 +75,7 @@ export class PaulEnemy extends BaseEnemy {
             delay: 10000,
             callback: () => {
                 this.enemy.play("idleToRage")
+                sound.play()
 
                 this.scene.tweens.add({
                     targets: this.enemy,

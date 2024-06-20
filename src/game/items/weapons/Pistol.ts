@@ -5,7 +5,7 @@ import {Bullet} from "./projectiles/Bullet";
 export class Pistol extends BaseWeapon {
     constructor(scene: Phaser.Scene, _parent: Phaser.Physics.Matter.Image) {
         super(scene, _parent,"mark", 500)
-
+        
         this.weapon.anims.create({
             key: 'idle',
             frames: this.scene.anims.generateFrameNumbers('mark', { start: 0, end: 3 }),
@@ -30,6 +30,8 @@ export class Pistol extends BaseWeapon {
     fire(): void {
         if(this.disabled || this.recharging) return
 
+        this.scene.sound.play("gun", {volume: 0.02})
+        
         this.weapon.play("fire", true)
 
         this.weapon.on("animationcomplete", () => {

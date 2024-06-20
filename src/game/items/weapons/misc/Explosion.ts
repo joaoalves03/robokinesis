@@ -7,6 +7,14 @@ export class Explosion extends Phaser.GameObjects.GameObjectFactory {
     constructor(scene: Phaser.Scene, x: number, y: number, radius: number = 40, damage: boolean = true) {
         super(scene)
 
+        if(radius >= 180) this.scene.sound.play("explosion_huge", {volume: 0.04})
+        else {
+            this.scene.time.addEvent({
+                delay: Phaser.Math.Between(10, 60),
+                callback: () => {this.scene.sound.play("explosion", {volume: 0.01})}
+            })
+        }
+        
         if (damage) {
             const trigger = this.scene.matter.add.circle(
                 x,

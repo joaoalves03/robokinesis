@@ -3,8 +3,20 @@ import Phaser from "phaser"
 import type {Player} from "@/game/entities/Player"
 
 export class Pogo extends BaseEnemy {
+    private sound
+    private soundController
+    
     constructor(world: Phaser.Physics.Matter.World, x: number, y: number, player: Player) {
         super(world, x, y, "enemies", 40, player)
+
+        this.sound = this.scene.sound.add("goat")
+        this.sound.setVolume(0.005)
+        
+        this.soundController = this.scene.time.addEvent({
+            delay: Phaser.Math.Between(6000, 12000),
+            repeat: -1,
+            callback: () => {this.sound.play()}
+        })
         
         this.enemy.anims.create({
             key: 'idleDown',
@@ -56,5 +68,11 @@ export class Pogo extends BaseEnemy {
         } else {
             this.enemy.play("idleDown", true)
         }
+    }
+    
+    die() {
+        super.die()
+        this.soundController.destroy()
+        this.sound.stop()
     }
 }

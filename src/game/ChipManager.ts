@@ -88,6 +88,8 @@ export class ChipManager {
                 this.active_chips[index].onEnabled(this.player)
                 if(this.active_chips[index].usesLeft <= 0) {
                     this.active_chips.splice(index, 1)
+                    this.selected_chip = 0
+                    this.active_chips[this.selected_chip].onEnabled(this.player)
                 }
                 
                 EventBus.emit("selectChip", this.selected_chip)

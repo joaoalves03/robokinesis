@@ -32,7 +32,8 @@ export class RocketLauncher extends BaseWeapon {
 
     fire(): void {
         if(this.disabled || this.recharging) return
-        
+
+        this.scene.sound.play("rocketlauncher", {volume: 0.04})
         this.weapon.play("fire", true)
         
         this.weapon.on("animationcomplete", () => {

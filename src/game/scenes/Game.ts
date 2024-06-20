@@ -12,7 +12,8 @@ export class GameScene extends Phaser.Scene {
     private chipManager: ChipManager
     private background: Background
 
-
+    private music: any
+    
     constructor() {
         super("gameScene")
     }
@@ -21,6 +22,11 @@ export class GameScene extends Phaser.Scene {
         this.input.setPollAlways()
         this.input.mouse!.disableContextMenu();
 
+        this.music = this.sound.add("music")
+        this.music.setVolume(0.04)
+        this.music.setLoop(true)
+        this.music.play()
+        
         this.background = new Background(this.matter.scene)
         this.arena = new Arena(this.matter.scene, 0, 0)
         this.player = new Player(this.matter.world, Phaser.Math.Between(0,1200), Phaser.Math.Between(0,1200))
@@ -68,6 +74,8 @@ export class GameScene extends Phaser.Scene {
             EventBus.removeListener("enemyDeath")
             EventBus.removeListener("game_startRound")
             EventBus.removeListener("waveEnded", waveEnded)
+            
+            this.music.stop()
             
             this.scene.start("gameOverScene")
         })

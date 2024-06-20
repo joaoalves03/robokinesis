@@ -6,10 +6,14 @@ import {Explosion} from "@/game/items/weapons/misc/Explosion"
 export class HectorEnemy extends BaseEnemy {
     private triggered = false
     private referencePoint: Phaser.GameObjects.Rectangle
+    private walk
     
     constructor(world: Phaser.Physics.Matter.World, x: number, y: number, player: Player) {
         super(world, x, y, "hector", 250, player)
 
+        this.walk = this.scene.sound.add("walk_heavy")
+        this.walk.setVolume(0.005)
+        
         this.referencePoint = this.scene.add.rectangle(this.enemy.x, this.enemy.y, 1, 1, 0, 0)
         
         this.createAnimations()
@@ -19,6 +23,8 @@ export class HectorEnemy extends BaseEnemy {
         this.enemy.setOnCollideWith(player.getPlayer().body as MatterJS.Body, () => {
             if(this.triggered) return
 
+            this.walk.stop()
+            
             this.triggered = true
             this.enemy.setVelocity(0,0)
             this.enemy.setStatic(true)
@@ -140,11 +146,18 @@ export class HectorEnemy extends BaseEnemy {
             } else {
                 this.enemy.play("runningUp", true)
             }
+
+            if(!this.walk.isPlaying) this.walk.play()
         }
     }
     
     takeDamage(damage: number) {
         if(!this.triggered)
             super.takeDamage(damage)
+    }
+    
+    die() {
+        super.die()
+        this.walk.stop()
     }
 }

@@ -7,7 +7,7 @@ export class AssaultRifle extends BaseWeapon {
     
     constructor(scene: Phaser.Scene, _parent: Phaser.Physics.Matter.Image) {
         super(scene, _parent,"markII", 1)
-
+        
         this.weapon.anims.create({
             key: 'idle',
             frames: this.scene.anims.generateFrameNumbers('markII', { start: 0, end: 3 }),
@@ -54,6 +54,7 @@ export class AssaultRifle extends BaseWeapon {
             x: this.scene.input.activePointer.x + this.scene.cameras.main.scrollX,
             y: this.scene.input.activePointer.y + this.scene.cameras.main.scrollY
         }
+        this.scene.sound.play("gun", {volume: 0.02})
         new Bullet(this.scene, this.weapon.x,this.weapon.y,target.x,target.y)
         this.reload()
     }

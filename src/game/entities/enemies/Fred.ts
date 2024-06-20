@@ -9,6 +9,8 @@ export class FredEnemy extends BaseEnemy {
     firingController: Phaser.Tweens.TweenChain
     firing: boolean = false
     private referencePoint: Phaser.GameObjects.Rectangle
+    private sound
+    private soundController
     
     constructor(world: Phaser.Physics.Matter.World, x: number, y: number, player: Player) {
         super(world, x, y, "fred", 100, player)
@@ -16,6 +18,15 @@ export class FredEnemy extends BaseEnemy {
         this.enemy.setOrigin(0.5, 0.5)
         this.enemy.setFrictionAir(0.04)
 
+        this.sound = this.scene.sound.add("frog")
+        this.sound.setVolume(0.04)
+
+        this.soundController = this.scene.time.addEvent({
+            delay: Phaser.Math.Between(4000, 10000),
+            repeat: -1,
+            callback: () => {this.sound.play()}
+        })
+        
         this.createAnimations()
 
         this.enemy.play("idleDown")
@@ -138,9 +149,9 @@ export class FredEnemy extends BaseEnemy {
     }
     
     die() {
+        this.soundController.destroy()
         this.firingController.stop()
         this.firingController.destroy()
-        this.enemy.destroy()
-        EventBus.emit("enemyDeath")
+        super.die()
     }
 }

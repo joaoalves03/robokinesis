@@ -1,6 +1,5 @@
 import eugene from '/assets/eugene.png'
 import eugene_single from '/assets/eugene_single.png'
-import enemies from '/assets/enemies.png'
 import shotgun from '/assets/weapons/ben.png'
 import plasma from '/assets/projectiles/plasma.png'
 import server from '/assets/objects/server.png'
@@ -15,6 +14,20 @@ import markII from '/assets/weapons/markii.png'
 import floor_tile from '/assets/objects/floor_tile.png'
 import ground_spots from '/assets/objects/ground_spots.png'
 import explosions from '/assets/objects/explosions.png'
+
+import sfx_walk_heavy from '/assets/sfx/walk_heavy.wav'
+import sfx_goat from '/assets/sfx/robot_goat.wav'
+import sfx_gorilla from '/assets/sfx/gorilla_screech.wav'
+import sfx_explosion_huge from '/assets/sfx/hector-explosion.wav'
+import sfx_shotgun from '/assets/sfx/shotgun.wav'
+import sfx_gun from '/assets/sfx/gun-shot.wav'
+import sfx_rocketlauncher from '/assets/sfx/rocket-launcher.wav'
+import sfx_explosion from '/assets/sfx/explosion.mp3'
+import sfx_cannon from '/assets/sfx/cannon.mp3'
+import sfx_frog from '/assets/sfx/frog.wav'
+
+import music from '/assets/music.mp3'
+
 import {EventBus} from "@/game/EventBus"
 
 export class LoadScene extends Phaser.Scene {
@@ -84,11 +97,20 @@ export class LoadScene extends Phaser.Scene {
             frameHeight: 32
         })
         
-        // 45 60
         this.load.image("floor_tile", floor_tile)
-
-        this.load.spritesheet("enemies", enemies, {frameWidth: 32, frameHeight: 32})
         
+        this.load.audio("walk_heavy", sfx_walk_heavy)
+        this.load.audio("goat", sfx_goat)
+        this.load.audio("gorilla", sfx_gorilla)
+        this.load.audio("explosion_huge", sfx_explosion_huge)
+        this.load.audio("shotgun", sfx_shotgun)
+        this.load.audio("gun", sfx_gun)
+        this.load.audio("rocketlauncher", sfx_rocketlauncher)
+        this.load.audio("explosion", sfx_explosion)
+        this.load.audio("cannon", sfx_cannon)
+        this.load.audio("frog", sfx_frog)
+        
+        this.load.audio("music", music)
         
         this.load.on("progress", (progress: number) => {
             EventBus.emit("loadProgress", progress)
