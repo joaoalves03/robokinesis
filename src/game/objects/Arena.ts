@@ -10,6 +10,12 @@ export class Arena {
     constructor(scene: Phaser.Scene, x: number, y: number) {
         this.scene = scene
         this.maps = JSON.parse(localStorage.getItem("maps") ?? "[]")
+        
+        if(this.maps.length == 0) {
+            // Sacrifices had to be made, enjoy this binary map
+            this.maps.push("0000000000000000000000000000000000010000000010000011000000001100000000000000000000000000000000000000000000000000000000011000000000000001100000000000000000000000000000000000000000000000000000000011000000001100000100000000100000000000000000000000000000000000")
+        }
+        
         const texture = this.scene.textures.get("ground_spots")
         
         for (let i = 0; i < 16; i++){
