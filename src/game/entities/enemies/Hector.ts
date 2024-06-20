@@ -24,7 +24,7 @@ export class HectorEnemy extends BaseEnemy {
                 0,
                 0xebb734,
                 0.25
-            )
+            ).setDepth(5)
 
             const repeatingCircle = this.scene.add.circle(
                 this.enemy.x,
@@ -32,7 +32,7 @@ export class HectorEnemy extends BaseEnemy {
                 0,
                 0xff0000,
                 0.25
-            )
+            ).setDepth(5)
 
             this.scene.add.tween({
                 duration: 500,
