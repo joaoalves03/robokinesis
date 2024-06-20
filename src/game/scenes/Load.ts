@@ -7,6 +7,7 @@ import plasma from '/assets/projectiles/plasma.png'
 import server from '/assets/objects/server.png'
 import paul from '/assets/enemies/paul.png'
 import fred from '/assets/enemies/fred.png'
+import pogo from '/assets/enemies/pogo.png'
 import floor_tile from '/assets/objects/floor_tile.png'
 import ground_spots from '/assets/objects/ground_spots.png'
 import {EventBus} from "@/game/EventBus"
@@ -48,6 +49,10 @@ export class LoadScene extends Phaser.Scene {
         this.load.spritesheet("fred", fred, {
             frameWidth: 32,
             frameHeight: 32
+        })
+        this.load.spritesheet("pogo", pogo, {
+            frameWidth: 28,
+            frameHeight: 28
         })
         this.load.image("rocketLauncher", rocketLauncher)
         this.load.image("floor_tile", floor_tile)
