@@ -70,10 +70,22 @@ export class Shotgun extends BaseWeapon {
 
         this.cartridges -= 1
         if (this.cartridges == 0) {
+            const reloadEffect = this.scene.add.tween({
+                duration: 500,
+                targets: this.weapon,
+                alpha: 0.25,
+                yoyo: true,
+                repeat: -1,
+                easing: 'Sine.easeInOut'
+            })
+            
+            reloadEffect.play()
+            
             this.reload()
             this.scene.time.addEvent({
                 delay: this.reloadTime,
                 callback: () => {
+                    reloadEffect.destroy()
                     this.cartridges = 2
                 }
             })
