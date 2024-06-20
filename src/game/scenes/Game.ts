@@ -23,7 +23,7 @@ export class GameScene extends Phaser.Scene {
 
         this.background = new Background(this.matter.scene)
         this.arena = new Arena(this.matter.scene, 0, 0)
-        this.player = new Player(this.matter.world, 50, 50)
+        this.player = new Player(this.matter.world, Phaser.Math.Between(0,1200), Phaser.Math.Between(0,1200))
         this.chipManager = new ChipManager(this.player)
 
         this.cameras.main.setZoom(10, 10)
