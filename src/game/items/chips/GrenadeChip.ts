@@ -2,10 +2,11 @@ import {BaseChip} from "@/game/items/chips/BaseChip"
 import {ChipType} from "@/game/items/chips/ChipType"
 import type {Player} from "@/game/entities/Player"
 import {Grenade} from "@/game/items/weapons/throwables/Grenade"
+import grenade from '/assets/chips/grenade.png'
 
 export class GrenadeChip extends BaseChip {
     constructor() {
-        super(ChipType.ITEM, 5, "Grenade", "")
+        super(ChipType.ITEM, 5, "Grenade", grenade)
     }
 
     onEnabled(player: Player): void {

@@ -3,12 +3,13 @@ import type {BaseWeapon} from "@/game/items/weapons/BaseWeapon"
 import type {Player} from "@/game/entities/Player"
 import {ChipType} from "@/game/items/chips/ChipType"
 import {PlasmaGun} from "@/game/items/weapons/PlasmaGun"
+import plasma from '/assets/chips/plasma.png'
 
 export class PlasmaGunChip extends BaseChip {
     weapon: BaseWeapon
 
     constructor() {
-        super(ChipType.WEAPON, -1, "Plasma Gun", "/assets/chips/plasma.png")
+        super(ChipType.WEAPON, -1, "Plasma Gun", plasma)
     }
 
     onEnabled(player: Player): void {

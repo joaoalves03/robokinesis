@@ -3,12 +3,13 @@ import type {Player} from "@/game/entities/Player"
 import {Pistol} from "@/game/items/weapons/Pistol"
 import {ChipType} from "@/game/items/chips/ChipType"
 import type {BaseWeapon} from "@/game/items/weapons/BaseWeapon"
+import pistol from '/assets/chips/pistol.png'
 
 export class PistolChip extends BaseChip {
     weapon: BaseWeapon
     
     constructor() {
-        super(ChipType.WEAPON, -1, "Pistol", "")
+        super(ChipType.WEAPON, -1, "Pistol", pistol)
     }
 
     onEnabled(player: Player): void {

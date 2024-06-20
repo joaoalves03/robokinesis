@@ -3,12 +3,13 @@ import {RocketLauncher} from "@/game/items/weapons/RocketLauncher"
 import {ChipType} from "@/game/items/chips/ChipType"
 import {Player} from "@/game/entities/Player"
 import type {BaseWeapon} from "@/game/items/weapons/BaseWeapon"
+import rocket from '/assets/chips/rocket.png'
 
 export class RocketLauncherChip extends BaseChip {
     weapon: BaseWeapon
     
     constructor() {
-        super(ChipType.WEAPON, -1, "Rocket Launcher", "/assets/chips/rocket.png")
+        super(ChipType.WEAPON, -1, "Rocket Launcher", rocket)
     }
 
     onEnabled(player: Player): void {
