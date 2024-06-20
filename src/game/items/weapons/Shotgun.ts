@@ -76,7 +76,10 @@ export class Shotgun extends BaseWeapon {
                 alpha: 0.25,
                 yoyo: true,
                 repeat: -1,
-                easing: 'Sine.easeInOut'
+                easing: 'Sine.easeInOut',
+                onUpdate: () => {
+                    if(this.disabled) this.weapon.alpha = 0
+                }
             })
             
             reloadEffect.play()
