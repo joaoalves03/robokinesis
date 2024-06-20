@@ -3,7 +3,7 @@ import {EventBus} from "@/game/EventBus"
 
 export class EnemyCannonball extends Phaser.GameObjects.GameObjectFactory {
     private cannonball: Phaser.Physics.Matter.Image
-    private speed: number = 20
+    private speed: number = 10
 
     constructor(scene: Phaser.Scene, startX: number, startY: number, targetX: number, targetY: number) {
         super(scene)
@@ -41,7 +41,7 @@ export class EnemyCannonball extends Phaser.GameObjects.GameObjectFactory {
         
         this.cannonball.setOnCollide((pair: Phaser.Types.Physics.Matter.MatterCollisionData) => {
             if(pair.bodyA.label == "player" || pair.bodyB.label == "player"){
-                EventBus.emit("damagePlayer", 25)
+                EventBus.emit("damagePlayer", 15)
             }
         })
     }
