@@ -65,7 +65,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-    <div class="absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center gap-2 text-white">
+    <div class="absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center gap-8 text-white">
         <div class="text-7xl font-bold">Game over</div>
         <div class="score-table">
             <div>
@@ -81,7 +81,7 @@ onBeforeUnmount(() => {
                 <div>{{killCount}}</div>
             </div>
         </div>
-        <div class="flex flex-col justify-center">
+        <div class="flex flex-col justify-center gap-2">
             <div class="button" @click="playAgain">Play again</div>
             <div class="button" @click="goToMainMenu">Return to menu</div>
         </div>
