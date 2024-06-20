@@ -17,6 +17,7 @@ export class Grenade extends Phaser.GameObjects.GameObjectFactory {
 
         const angle = Math.atan2(targetY - startY, targetX - startX)
         this.grenade.setRotation(angle)
+        this.grenade.setDepth(5)
 
         this.grenade.setVelocity(
             this.speed * Math.cos(angle),
