@@ -13,7 +13,7 @@ EventBus.on("updateHP", (n: number) => {
     <div class="non-interactive content">
         <div :style="`width: ${playerHealth}%;`"></div>
         <img src="/assets/heart.svg" alt="">
-        <p>{{ playerHealth }}</p>
+        <p>{{ playerHealth.toFixed(0) }}</p>
     </div>
 </template>
 

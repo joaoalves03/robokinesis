@@ -114,6 +114,10 @@ export class Player extends Phaser.Physics.Matter.Factory {
         return this.player
     }
     
+    getHealth() {
+        return this.health
+    }
+    
     setHealth(n: number) {
         this.health = n
         EventBus.emit("updateHP", this.health)

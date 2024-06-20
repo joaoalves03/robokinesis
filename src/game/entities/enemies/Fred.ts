@@ -122,7 +122,6 @@ export class FredEnemy extends BaseEnemy {
         this.enemy.setAngularVelocity(0)
         
         if(!this.firing) {
-            console.log("uuuuh")
             if(this.referencePoint.angle < 0) {
                 this.enemy.play("idleUp", true)
             } else {

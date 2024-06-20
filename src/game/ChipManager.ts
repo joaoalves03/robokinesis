@@ -70,9 +70,9 @@ export class ChipManager {
         this.active_chips.splice(index, 1)
     }
     
-    enableChip(index: number) {
-        if(index == this.selected_chip) {
-            this.active_chips[this.selected_chip].onDisabled(this.player)
+    enableChip(index: number | undefined) {
+        if(index == undefined || index == this.selected_chip) {
+            this.active_chips[this.selected_chip ?? 0].onDisabled(this.player)
             this.selected_chip = undefined
             EventBus.emit("selectChip", -1)
         } else if (this.selected_chip == undefined) {

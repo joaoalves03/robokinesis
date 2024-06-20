@@ -1,4 +1,5 @@
 import {EventBus} from "@/game/EventBus"
+import Phaser from "phaser"
 
 export class Explosion extends Phaser.GameObjects.GameObjectFactory {
     private visuals: Phaser.GameObjects.Sprite
@@ -6,7 +7,7 @@ export class Explosion extends Phaser.GameObjects.GameObjectFactory {
     constructor(scene: Phaser.Scene, x: number, y: number, radius: number = 40, damage: boolean = true) {
         super(scene)
 
-        if(damage) {
+        if (damage) {
             const trigger = this.scene.matter.add.circle(
                 x,
                 y,
@@ -14,9 +15,18 @@ export class Explosion extends Phaser.GameObjects.GameObjectFactory {
                 {
                     isStatic: true,
                     label: "explosion",
-                    onCollideCallback: (pair: any) => {
+                    onCollideCallback: (pair: Phaser.Types.Physics.Matter.MatterCollisionData) => {
                         if (pair.bodyA.label == "player" || pair.bodyB.label == "player") {
-                            EventBus.emit("damagePlayer", 10)
+                            const pos = 
+                                pair.bodyA.label == "player" ? pair.bodyA.position : pair.bodyB.position
+
+                            const dx = pos.x - x
+                            const dy = pos.y - y
+                            
+                            EventBus.emit(
+                                "damagePlayer",
+                                (((-19/15) * Math.sqrt(dx * dx + dy * dy) + 400) / 1250) * radius
+                            )
                         }
                     }
                 }
@@ -53,7 +63,7 @@ export class Explosion extends Phaser.GameObjects.GameObjectFactory {
         this.visuals.on("animationcomplete", () => {
             this.visuals.destroy()
         })
-        
+
         this.visuals.play(
             Math.random() < 0.5
                 ? "explosion1"

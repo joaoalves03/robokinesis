@@ -33,16 +33,21 @@ export class EnemyManager {
         PaulEnemy
     ]
     
-    constructor(scene: Phaser.Scene) {
+    constructor(scene: Phaser.Scene, player: Player) {
         this.scene = scene
 
         EventBus.on("enemyDeath", () => {
-            if(this.enemyCount <= 0) return
-            
-            this.enemyCount--
-            
-            if(this.enemyCount == 0)
-                EventBus.emit("waveEnded")
+            this.scene.time.addEvent({
+                delay: 1,
+                callback: () => {
+                    if(this.enemyCount <= 0 || player.getHealth() <= 0) return
+
+                    this.enemyCount--
+
+                    if(this.enemyCount == 0)
+                        EventBus.emit("waveEnded")
+                }
+            })
         })
         
         EventBus.on("playerDeath", () => {

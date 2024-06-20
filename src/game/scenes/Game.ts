@@ -41,7 +41,7 @@ export class GameScene extends Phaser.Scene {
 
         const game_startRound = () => {
             if(this.enemyManager == undefined) {
-                this.enemyManager = new EnemyManager(this.matter.scene)
+                this.enemyManager = new EnemyManager(this.matter.scene, this.player)
             }
             this.arena.newMap()
             this.enemyManager!.newWave(this.arena.getTiles(), this.player)

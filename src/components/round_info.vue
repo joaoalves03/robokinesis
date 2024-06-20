@@ -10,7 +10,9 @@
     })
     
     EventBus.on("enemyDeath", () => {
-        enemiesLeft.value = Math.max(0, enemiesLeft.value - 1)
+        setTimeout(() => {
+            enemiesLeft.value = Math.max(0, enemiesLeft.value - 1)
+        }, 1)
     })
 
     EventBus.on("newWave", () => {

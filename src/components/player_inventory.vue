@@ -26,6 +26,7 @@ const startGame = (_chipManager: ChipManager) => {
 }
 
 const waveEnded = () => {
+    chipManager?.enableChip(undefined)
     cardsToSelect.value = chipManager!.getRandomChips()
     showCardSelect.value = true
 }
