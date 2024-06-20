@@ -17,6 +17,7 @@ const selectedCard: Ref<BaseChip | undefined> = ref(undefined)
 const chip: Ref<number | undefined> = ref(0)
 
 const hide = ref(false)
+const paused = ref(false)
 
 const startGame = (_chipManager: ChipManager) => {
     chipManager = _chipManager
@@ -47,6 +48,14 @@ const selectChip = (n: number) => {
     chip.value = undefined
     chip.value = n
 }
+
+EventBus.on("pause", () => {
+    paused.value = true
+})
+
+EventBus.on("unpause", () => {
+    paused.value = false
+})
 
 EventBus.on("startGame", startGame)
 EventBus.on("waveEnded", waveEnded)
@@ -121,7 +130,7 @@ function skip() {
     </div>
 
     <div class="absolute flex w-full justify-center -bottom-8 lg:-bottom-2 xl:bottom-4 scale-50 lg:scale-75 xl:scale-100 select-none"
-         :class="[(selectedCard == undefined ? 'non-interactive' : ''),(hide ? '!hidden' : '')]">
+         :class="[(selectedCard == undefined ? 'non-interactive' : ''),(hide || paused ? '!hidden' : '')]">
 
         <img class="bottom-6 absolute z-0 select-none" src="/assets/chips/chip-container-top.png" alt=""/>
 

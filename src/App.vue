@@ -9,7 +9,7 @@ import Map_editor from './components/map_editor.vue';
 
 const phaserRef = ref();
 
-const ui = shallowRef(LoadingScreen);
+const ui = shallowRef(LoadingScreen)
 
 EventBus.on("play", () => {
     ui.value = In_game

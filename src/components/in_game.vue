@@ -5,9 +5,11 @@
     import {EventBus} from "@/game/EventBus"
     import {onBeforeUnmount, ref} from "vue"
     import Game_over from "@/components/game_over.vue"
+    import Pause_menu from "@/components/pause_menu.vue"
     
     const showInfo = ref(false)
     const gameOver = ref(false)
+    const paused = ref(false)
 
     EventBus.on("startRound", () => {
         showInfo.value = true
@@ -25,6 +27,14 @@
         gameOver.value = false
         showInfo.value = false
     })
+
+    EventBus.on("pause", () => {
+        paused.value = true
+    })
+
+    EventBus.on("unpause", () => {
+        paused.value = false
+    })
     
     onBeforeUnmount(() => {
         EventBus.removeListener("startRound")
@@ -35,8 +45,9 @@
 </script>
 
 <template>
-    <round_info :class="showInfo && !gameOver ? '' : '!hidden'" />
-    <player_health :class="showInfo && !gameOver ? '' : '!hidden'" />
+    <round_info :class="showInfo && !gameOver && !paused ? '' : '!hidden'" />
+    <player_health :class="showInfo && !gameOver && !paused ? '' : '!hidden'" />
     <inventory />
-    <game_over :class="gameOver ? '' : '!hidden'" />
+    <game_over :class="gameOver && !paused ? '' : '!hidden'" />
+    <pause_menu :class="paused ? '' : '!hidden'" />
 </template>

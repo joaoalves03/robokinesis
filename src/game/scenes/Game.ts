@@ -11,6 +11,7 @@ export class GameScene extends Phaser.Scene {
     declare enemyManager?: EnemyManager
     private chipManager: ChipManager
     private background: Background
+    private keyboard: Phaser.Input.Keyboard.KeyboardPlugin | null
 
     private music: any
     
@@ -31,7 +32,8 @@ export class GameScene extends Phaser.Scene {
         this.arena = new Arena(this.matter.scene, 0, 0)
         this.player = new Player(this.matter.world, Phaser.Math.Between(0,1200), Phaser.Math.Between(0,1200))
         this.chipManager = new ChipManager(this.player)
-
+        this.keyboard = this.input.keyboard
+        
         this.cameras.main.setZoom(10, 10)
         
         EventBus.emit("startGame", this.chipManager)
@@ -94,6 +96,11 @@ export class GameScene extends Phaser.Scene {
     }
 
     update() {
+        if(this.keyboard!.addKey('ESC').isDown) {
+            EventBus.emit("pause")
+            this.scene.switch("pauseScene")
+        }
+        
         this.player.update()
         
         if(this.enemyManager)
