@@ -11,6 +11,7 @@ let chipManager: ChipManager | undefined
 const showCardSelect = ref(false)
 const cardsToSelect: Ref<BaseChip[]> = ref([])
 const selectedCard: Ref<BaseChip | undefined> = ref(undefined)
+const chip = ref(0)
 
 const hide = ref(false)
 
@@ -38,11 +39,16 @@ const showGameOverScreen = () => {
     hide.value = true
 }
 
+const selectChip = (n: number) => {
+    chip.value = n
+}
+
 EventBus.on("startGame", startGame)
 EventBus.on("waveEnded", waveEnded)
 EventBus.on("startRound", startRound)
 EventBus.on("playAgain", playAgain)
 EventBus.on("showGameOverScreen", showGameOverScreen)
+EventBus.on("selectChip", selectChip)
 
 onBeforeUnmount(() => {
     EventBus.removeListener("startGame", startGame)
@@ -134,9 +140,9 @@ function skip() {
         <img class="-bottom-24 absolute z-20" src="/assets/chips/chip-container-bottom.png" alt=""/>
 
         <div class="absolute grid grid-cols-3 z-30 place-items-center -bottom-1 w-[480px]">
-            <img src="/assets/chips/button-1.png" class="bg-yellow-300" alt=""/>
-            <img src="/assets/chips/button-2.png" alt=""/>
-            <img src="/assets/chips/button-3.png" alt=""/>
+            <img src="/assets/chips/button-1.png" :class="chip == 0 ? 'bg-yellow-300' : ''" alt=""/>
+            <img src="/assets/chips/button-2.png" :class="chip == 1 ? 'bg-yellow-300' : ''" alt=""/>
+            <img src="/assets/chips/button-3.png" :class="chip == 2 ? 'bg-yellow-300' : ''" alt=""/>
         </div>
     </div>
 </template>

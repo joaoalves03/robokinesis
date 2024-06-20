@@ -40,7 +40,7 @@ export class PaulEnemy extends BaseEnemy {
         this.enemy.setOrigin(0.5, 0.5)
         this.ragingEffect = this.scene.add.circle(
             this.enemy.x, this.enemy.y, 0, 0xff0000, 0.5
-        )
+        ).setDepth(5)
 
         this.referencePoint = this.scene.add.rectangle(this.enemy.x, this.enemy.y, 1, 1, 0, 0)
 

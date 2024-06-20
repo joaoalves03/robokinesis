@@ -10,6 +10,7 @@ import {PlasmaGunChip} from "@/game/items/chips/PlasmaGunChip"
 import type {ChipType} from "@/game/items/chips/ChipType"
 import {ShotgunChip} from "@/game/items/chips/ShotgunChip"
 import {GrenadeChip} from "@/game/items/chips/GrenadeChip"
+import {EventBus} from "@/game/EventBus"
 
 export class ChipManager {
     private readonly player: Player
@@ -77,15 +78,20 @@ export class ChipManager {
         if(index == this.selected_chip) {
             this.active_chips[this.selected_chip].onDisabled(this.player)
             this.selected_chip = undefined
+            EventBus.emit("selectChip", -1)
         } else if (this.selected_chip == undefined) {
             if(index < this.active_chips.length) {
                 this.active_chips[index].onEnabled(this.player)
                 this.selected_chip = index
+                EventBus.emit("selectChip", index)
             }
+        } else if (this.active_chips[index] == undefined) {
+            EventBus.emit("selectChip", this.selected_chip)
         } else {
             this.active_chips[this.selected_chip].onDisabled(this.player)
             this.active_chips[index].onEnabled(this.player)
             this.selected_chip = index
+            EventBus.emit("selectChip", index)
         }
     }
 }
