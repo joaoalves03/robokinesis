@@ -90,7 +90,8 @@ onBeforeUnmount(() => {
 
 <style scoped lang="postcss">
     .button {
-        @apply text-center text-white text-3xl py-2 px-8 rounded-full transition-all hover:bg-red-500 select-none cursor-pointer;
+        @apply text-center text-white text-3xl py-2 px-8 rounded-xl transition-all border-4 border-[#d95763]
+        hover:bg-[#d95763] hover:border-white hover:border-double select-none cursor-pointer;
     }
     
     .score-table {
