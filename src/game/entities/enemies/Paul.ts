@@ -77,10 +77,16 @@ export class PaulEnemy extends BaseEnemy {
                 this.enemy.play("idleToRage")
                 sound.play()
 
-                this.scene.tweens.add({
+                const growingController = this.scene.tweens.add({
                     targets: this.enemy,
                     duration: 600,
-                    scale: 1.4
+                    scale: 1.4,
+                    onUpdate: () => {
+                        if(this.isDead()) {
+                            growingController.stop()
+                            growingController.destroy()
+                        }
+                    }
                 })
 
                 this.enemy.on("animationcomplete", () => {
