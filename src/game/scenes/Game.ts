@@ -24,7 +24,7 @@ export class GameScene extends Phaser.Scene {
         this.input.mouse!.disableContextMenu();
 
         this.music = this.sound.add("music")
-        this.music.setVolume(0.04)
+        this.music.setVolume(0.25)
         this.music.setLoop(true)
         this.music.play()
         

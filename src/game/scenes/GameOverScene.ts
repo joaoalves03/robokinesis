@@ -23,7 +23,7 @@ export class GameOverScene extends Phaser.Scene {
         this.cameras.main.setZoom(2, 2)
         this.cameras.main.startFollow(player)
 
-        this.sound.play("eugene_death", {volume: 0.05})
+        this.sound.play("eugene_death", {volume: 0.25})
         
         this.time.addEvent({
             delay: 1000,
@@ -34,7 +34,7 @@ export class GameOverScene extends Phaser.Scene {
 
                 this.radius = 0
 
-                this.sound.play("explosion", {volume: 0.05})
+                this.sound.play("explosion", {volume: 0.25})
                 
                 this.tweens.add({
                     targets: this,

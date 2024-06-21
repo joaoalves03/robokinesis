@@ -11,7 +11,7 @@ export class Shotgun extends BaseWeapon {
         super(scene, _parent, "shotgun", 2000)
 
         this.sound = this.scene.sound.add("shotgun")
-        this.sound.setVolume(0.04)
+        this.sound.setVolume(0.5)
         
         this.scene.input.on('pointerdown', (event: Phaser.Input.Pointer) => {
             if(event.rightButtonDown()) {

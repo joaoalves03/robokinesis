@@ -15,7 +15,7 @@ export class PaulEnemy extends BaseEnemy {
         super(world, x, y, "paul", 200, player)
 
         const sound = this.scene.sound.add("gorilla")
-        sound.setVolume(0.02)        
+        sound.setVolume(0.25)        
         
         this.enemy.anims.create({
             key: 'idle',

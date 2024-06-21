@@ -10,7 +10,7 @@ export class Pogo extends BaseEnemy {
         super(world, x, y, "enemies", 40, player)
 
         this.sound = this.scene.sound.add("goat")
-        this.sound.setVolume(0.005)
+        this.sound.setVolume(0.05)
         
         this.soundController = this.scene.time.addEvent({
             delay: Phaser.Math.Between(6000, 12000),

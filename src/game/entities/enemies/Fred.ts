@@ -19,7 +19,7 @@ export class FredEnemy extends BaseEnemy {
         this.enemy.setFrictionAir(0.04)
 
         this.sound = this.scene.sound.add("frog")
-        this.sound.setVolume(0.04)
+        this.sound.setVolume(0.25)
 
         this.soundController = this.scene.time.addEvent({
             delay: Phaser.Math.Between(4000, 10000),

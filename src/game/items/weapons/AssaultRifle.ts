@@ -54,7 +54,7 @@ export class AssaultRifle extends BaseWeapon {
             x: this.scene.input.activePointer.x + this.scene.cameras.main.scrollX,
             y: this.scene.input.activePointer.y + this.scene.cameras.main.scrollY
         }
-        this.scene.sound.play("gun", {volume: 0.02})
+        this.scene.sound.play("gun", {volume: 0.25})
         new Bullet(this.scene, this.weapon.x,this.weapon.y,target.x,target.y)
         this.reload()
     }

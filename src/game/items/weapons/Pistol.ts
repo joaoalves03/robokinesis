@@ -30,7 +30,7 @@ export class Pistol extends BaseWeapon {
     fire(): void {
         if(this.disabled || this.recharging) return
 
-        this.scene.sound.play("gun", {volume: 0.02})
+        this.scene.sound.play("gun", {volume: 0.25})
         
         this.weapon.play("fire", true)
 

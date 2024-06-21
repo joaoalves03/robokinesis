@@ -12,7 +12,7 @@ export class HectorEnemy extends BaseEnemy {
         super(world, x, y, "hector", 250, player)
 
         this.walk = this.scene.sound.add("walk_heavy")
-        this.walk.setVolume(0.005)
+        this.walk.setVolume(0.05)
         
         this.referencePoint = this.scene.add.rectangle(this.enemy.x, this.enemy.y, 1, 1, 0, 0)
         
