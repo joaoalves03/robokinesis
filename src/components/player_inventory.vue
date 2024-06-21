@@ -112,7 +112,7 @@ function skip() {
                 @click="selectCard(index)"
                 :key="index"
                 class="relative transition-all duration-150 ease-in-out"
-                :class="selectedCard == undefined ? 'scale-125 m-2' : selectedCard == item ? 'scale-150' : 'scale-95 brightness-50'">
+                :class="selectedCard == undefined ? 'scale-125 m-2 hover:scale-[1.35]' : selectedCard == item ? 'scale-150' : 'scale-95 brightness-50 hover:scale-100'">
                 <img :src="item.type == 0 ? green : item.type == 1 ? purple : red" class="relative z-10" alt="">
                 <img :src="item.image" alt="" class="absolute top-[0.8rem] right-[0.8rem] z-0" />
                 <div class="absolute w-[6.8rem] bottom-12 left-4 pl-1 z-20 overflow-hidden whitespace-nowrap">
@@ -122,9 +122,11 @@ function skip() {
                 </div>
             </div>
         </div>
+        
         <div v-if="chipManager!.getActiveChips().length == 3"
              @click="skip()"
-             class="bg-white rounded-xl py-2 px-4 hover:bg-gray-400">
+             class="button"
+             :class="selectedCard != undefined ? 'mt-4' : '' ">
             Skip
         </div>
     </div>
@@ -162,5 +164,8 @@ function skip() {
 </template>
 
 <style scoped lang="postcss">
-
+    .button {
+        @apply text-center text-white text-xl py-2 px-4 rounded-xl transition-all border-4 border-[#d95763]
+        hover:bg-[#d95763] hover:border-white hover:border-double select-none cursor-pointer;
+    }
 </style>
