@@ -27,7 +27,7 @@ export class Missile extends Phaser.GameObjects.GameObjectFactory {
             new Explosion(scene, this.missile.x, this.missile.y)
             
             this.scene.time.addEvent({
-                delay: 1,
+                delay: 10,
                 callback: () => {this.missile.destroy()}
             })
         })

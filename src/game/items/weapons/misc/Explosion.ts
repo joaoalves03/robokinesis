@@ -41,7 +41,7 @@ export class Explosion extends Phaser.GameObjects.GameObjectFactory {
             )
 
             scene.time.addEvent({
-                delay: 10,
+                delay: 50,
                 callback: () => {
                     this.scene.matter.world.remove(trigger)
                 }
